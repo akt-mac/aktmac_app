@@ -44,6 +44,16 @@ h1 {
   text-decoration: none;
 }
 
+/* ユーザー登録 */
+
+.label-signup {
+  margin-top: 15px;
+}
+
+.btn-signup {
+  margin-top: 20px;
+}
+
 /* debug */
 
 @mixin box_sizing {
