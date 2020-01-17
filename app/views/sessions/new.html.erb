@@ -1,0 +1,18 @@
+<% provide(:title, "ログイン") %>
+<h1>ログイン</h1>
+<div class="row justify-content-md-center top-login">
+  <div class="col-md-4 col-md-offset-4">
+    <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+
+      <%= f.label :email, class: "label-login" %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password, class: "label-login" %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <div class="center">
+        <%= f.submit "ログイン", class: "btn btn-primary btn-login" %>
+      </div
+    <% end %>
+  </div>
+</div>
