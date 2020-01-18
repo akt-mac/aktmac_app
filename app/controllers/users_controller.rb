@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -8,7 +13,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "新規ユーザーを作成しました。"
-      redirect_to @user
+      redirect_to users_url
     else
       render :new
     end
@@ -16,6 +21,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private

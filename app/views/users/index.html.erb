@@ -1,0 +1,22 @@
+<% provide(:title, "ユーザー一覧") %>
+<h1>ユーザー一覧</h1>
+<div>
+  <table class="table table-bordered table-condensed center">
+    <thead class="thead-light">
+      <tr>
+        <th width="90"></th>
+        <th><%= User.human_attribute_name :name %></th>
+        <th><%= User.human_attribute_name :email %></th>
+      </tr>
+    </thead>
+    <% @users.each do |user| %>
+      <tbody>
+        <tr>
+          <td><%= link_to "編集", edit_user_path(user), class: "btn btn-success" %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

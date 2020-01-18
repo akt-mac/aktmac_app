@@ -48,6 +48,21 @@ ul {
   text-decoration: none;
 }
 
+.header-list ul {
+  margin-bottom: -15px;
+}
+
+.header-list ul li {
+  font-size: 1.2em;
+  display: inline;
+  margin-right: 1em;
+}
+
+#header-menu {
+  color: #fff;
+  text-decoration: none;
+}
+
 /* ユーザー登録 */
 
 .label-signup {
