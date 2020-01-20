@@ -30,7 +30,7 @@ ul {
   list-style-type: square;
 }
 
-/* header */
+/* ヘッダー */
 
 #logo {
   float: left;
@@ -53,7 +53,7 @@ ul {
 }
 
 .header-list ul li {
-  font-size: 1.2em;
+  font-size: 1em;
   display: inline;
   margin-right: 1em;
 }
@@ -97,6 +97,57 @@ ul {
 
 .btn-login {
   margin-top: 20px;
+}
+
+/* ユーザー一覧ページ */
+
+#table-users {
+  td {
+    vertical-align: middle;
+  }
+}
+
+/* ページネーション */
+
+.pagination {
+  height: auto;
+  margin: auto;
+  margin: 0 10px 10px 0;
+  text-align: center;
+}
+
+.pagination a {
+  background-color: grey;
+  text-decoration: none;
+}
+
+.pagination * {
+  color: white;
+  margin: 0 7px;
+  text-decoration: none;
+  padding: 12.5px 18.5px;
+  border-radius: 25px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.current {
+  font-style: normal;
+  color: white;
+  background: #93c9ff;
+  border-radius: 22.5px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.pagination a:hover {
+  background: #93c9ff;
+}
+
+.pagination .disabled {
+  color: #666666;
+  padding: 11px 17px;
+  border: 1px solid #666666;
+  border-radius: 23px;
+  font-family: 'Nunito', sans-serif;
 }
 
 /* error_messages */
