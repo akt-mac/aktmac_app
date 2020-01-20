@@ -3,10 +3,13 @@
     <%= link_to "修理管理票", root_path, id: "logo" %>
     <div class="header-list">
       <ul>
-        <li><%= link_to "修理一覧", repairs_path, id: "header-menu" %></li>
-        <li><%= link_to "ユーザー登録", signup_path, id: "header-menu" %></li>
-        <li><%= link_to "ユーザー一覧", users_path, id: "header-menu" %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete, id: "header-menu" %></li>
+        <% if logged_in? %>
+          <li><%= link_to "修理一覧", repairs_path, id: "header-menu" %></li>
+          <li><%= link_to "ユーザー登録", signup_path, id: "header-menu" %></li>
+          <li><%= link_to "ユーザー一覧", users_path, id: "header-menu" %></li>
+          <li id="header-menu"><%= "ログイン中：#{current_user.name}" %></li>
+          <li><%= link_to "ログアウト", logout_path, method: :delete, id: "header-menu" %></li>
+        <% end %>
       </ul>
     </div>
   </div>
