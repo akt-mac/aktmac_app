@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reception_day: 2020-01-21 15:53:21
+  customer_name: MyString
+  address: MyString
+  phone_number: MyString
+  mobile_phone_number: MyString
+  machine_model: MyString
+  condition: MyString
+
+two:
+  reception_day: 2020-01-21 15:53:21
+  customer_name: MyString
+  address: MyString
+  phone_number: MyString
+  mobile_phone_number: MyString
+  machine_model: MyString
+  condition: MyString

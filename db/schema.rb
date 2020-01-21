@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_061402) do
+ActiveRecord::Schema.define(version: 2020_01_21_065321) do
+
+  create_table "repairs", force: :cascade do |t|
+    t.datetime "reception_day"
+    t.string "customer_name"
+    t.string "address"
+    t.string "phone_number"
+    t.string "mobile_phone_number"
+    t.string "machine_model"
+    t.string "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

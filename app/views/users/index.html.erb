@@ -25,8 +25,9 @@
             <td>
               <%= user.name %>
               <% if current_user == user %>
-                <span class="badge badge-info">自分</span>
+                <span class="badge badge-pill badge-info">自分</span>
               <% end %>
+              <span class="badge badge-pill badge-info badge-new"><%= new_arrivals(user.created_at) %></span>
             </td>
             <td><%= user.email %></td>
             <% if current_user.admin? %>

@@ -150,6 +150,24 @@ ul {
   font-family: 'Nunito', sans-serif;
 }
 
+/* お知らぜバッジ */
+
+.badge-new{
+  animation: flash 2s linear infinite;
+  background:#0091EA;
+}
+
+@keyframes flash {
+  0%,100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+    background:#66B2FF;
+  }
+}
+
 /* 修理一覧ページ */
 
 .btn-repair--new {
