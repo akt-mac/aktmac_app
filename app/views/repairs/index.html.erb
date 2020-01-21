@@ -1,13 +1,17 @@
 <% provide(:title, "一覧") %>
 <h1>修理一覧</h1>
-<div class="">
+<div>
+  <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
   <table class="table table-bordered table-condensed">
     <thead class="thead-light center">
       <tr>
         <th>受付日</th>
         <th>得意先名</th>
+        <th>住所</th>
+        <th>連絡先</th>
         <th>型式</th>
         <th>製品種目</th>
+        <th>症状</th>
         <th>進捗</th>
         <th>連絡</th>
         <th>催促</th>
@@ -17,6 +21,9 @@
     </thead>
     <tbody class="center">
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>

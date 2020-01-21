@@ -107,7 +107,7 @@ ul {
   }
 }
 
-/* ページネーション */
+/* ユーザー一覧ページネーション */
 
 .pagination {
   height: auto;
@@ -150,7 +150,13 @@ ul {
   font-family: 'Nunito', sans-serif;
 }
 
-/* error_messages */
+/* 修理一覧ページ */
+
+.btn-repair--new {
+  margin: 10px 0 10px 0;
+}
+
+/* エラーメッセージ */
 
 #error_explanation {
   color: red;
