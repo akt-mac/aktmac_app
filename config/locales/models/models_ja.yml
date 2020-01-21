@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      repair: 修理
     attributes:
         user:
           id: ID
@@ -11,3 +12,11 @@ ja:
           password_confirmation: パスワード再入力
           created_at: 作成日
           updated_at: 更新日
+        repair:
+          reception_day: 受付日
+          customer_name: 得意先名
+          address: 住所
+          phone_number: 電話番号
+          mobile_phone_number: 携帯電話番号
+          machine_model: 機械型式
+          condition: 症状

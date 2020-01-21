@@ -1,0 +1,30 @@
+<%= form_with(model: @repair, local: true) do |f| %>
+  <%= render partial: 'shared/error_messages', locals: { obj: @repair } %>
+
+  <%= f.label :reception_day, class: "label-#{yield(:class_text)}" %>
+  <div>
+    <%= f.date_select :reception_day, {value: Time.now}, class: "form-control form-reception_day" %>
+  </div>
+
+  <%= f.label :customer_name, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :customer_name, class: "form-control" %>
+
+  <%= f.label :address, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :address, class: "form-control" %>
+
+  <%= f.label :phone_number, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :phone_number, class: "form-control" %>
+
+  <%= f.label :mobile_phone_number, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :mobile_phone_number, class: "form-control" %>
+
+  <%= f.label :machine_model, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :machine_model, class: "form-control" %>
+
+  <%= f.label :condition, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_area :condition, rows: 5, class: "form-control" %>
+
+  <div class="center">
+    <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>
+  </div>
+<% end %>
