@@ -3,7 +3,7 @@
 
   <%= f.label :reception_day, class: "label-#{yield(:class_text)}" %>
   <div>
-    <%= f.date_select :reception_day, {value: Time.now}, class: "form-control form-reception_day" %>
+    <%= f.date_select :reception_day, {}, class: "form-control form-reception_day" %>
   </div>
 
   <%= f.label :customer_name, class: "label-#{yield(:class_text)}" %>
@@ -23,6 +23,7 @@
 
   <%= f.label :condition, class: "label-#{yield(:class_text)}" %>
   <%= f.text_area :condition, rows: 5, class: "form-control" %>
+  <%= f.collection_select :address, @users, :id, :name %>
 
   <div class="center">
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>

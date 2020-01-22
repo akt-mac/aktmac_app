@@ -17,6 +17,6 @@ ja:
           customer_name: 得意先名
           address: 住所
           phone_number: 電話番号
-          mobile_phone_number: 携帯電話番号
-          machine_model: 機械型式
+          mobile_phone_number: 携帯番号
+          machine_model: 型式
           condition: 症状

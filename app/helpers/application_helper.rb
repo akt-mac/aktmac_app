@@ -15,4 +15,12 @@ module ApplicationHelper
       text
     end
   end
+
+  def blank_text(text)
+    if text.blank?
+      "未登録"
+    else
+      text
+    end
+  end
 end

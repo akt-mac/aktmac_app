@@ -1,0 +1,51 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1>修理詳細</h1>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-condensed">
+        <tbody>
+          <tr>
+            <th width="100"><%= Repair.human_attribute_name :customer_name %></th>
+            <td colspan="3"><%= @repair.customer_name %></td>
+          </tr>
+          <tr>
+            <th><%= Repair.human_attribute_name :address %></th>
+            <td colspan="3"><%= @repair.address %></td>
+          </tr>
+          <tr>
+            <th><%= Repair.human_attribute_name :phone_number %></th>
+            <td><%= blank_text(@repair.phone_number) %></td>
+            <th width="150"><%= Repair.human_attribute_name :mobile_phone_number %></th>
+            <td><%= blank_text(@repair.mobile_phone_number) %></td>
+          </tr>
+        </tbody>
+        <table class="table table-bordered table-condensed">
+          <tbody>
+            <tr>
+              <th width="100"><%= Repair.human_attribute_name :machine_model %></th>
+              <td><%= @repair.machine_model %></td>
+            </tr>
+            <tr>
+              <th><%= Repair.human_attribute_name :condition %></th>
+              <td><%= @repair.condition %></td>
+            </tr>
+            <tr>
+              <th></th>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <div class="center">
+      <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">戻る</button>
+      </div>
+    </div>
+  </div>
+</div>

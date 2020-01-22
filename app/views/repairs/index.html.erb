@@ -5,14 +5,10 @@
   <table class="table table-bordered table-condensed">
     <thead class="thead-light center">
       <tr>
-        <th>受付日</th>
-        <th>得意先名</th>
-        <th>住所</th>
-        <th>電話番号</th>
-        <th>携帯電話番号</th>
-        <th>型式</th>
-        <th>製品種目</th>
-        <th>症状</th>
+        <th><%= Repair.human_attribute_name :reception_day %></th>
+        <th><%= Repair.human_attribute_name :customer_name %></th>
+        <th><%= Repair.human_attribute_name :address %></th>
+        <th><%= Repair.human_attribute_name :machine_model %></th>
         <th>進捗</th>
         <th>連絡</th>
         <th>催促</th>
@@ -28,17 +24,13 @@
           (<%= $days_of_the_week[r.reception_day.wday] %>)
         </td>
         <td>
-          <%= r.customer_name %>
+          <%= link_to r.customer_name, repair_path(r) %>
           <span class="badge badge-pill badge-info badge-new">
             <%= new_arrivals(r.created_at) %>
           </span>
         </td>
-        <td><%= r.address %></td>
-        <td><%= r.phone_number %></td>
-        <td><%= r.mobile_phone_number %></td>
+        <td><%= r.address.truncate(11) %></td>
         <td><%= r.machine_model %></td>
-        <td></td>
-        <td><%= r.condition %></td>
         <td></td>
         <td></td>
         <td></td>
