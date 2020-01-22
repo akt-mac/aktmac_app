@@ -3,27 +3,51 @@
 
   <%= f.label :reception_day, class: "label-#{yield(:class_text)}" %>
   <div>
-    <%= f.date_select :reception_day, {}, class: "form-control form-reception_day" %>
+    <%= f.date_select :reception_day, {}, class: "form-control form-bootstrap" %>
   </div>
 
-  <%= f.label :customer_name, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_field :customer_name, class: "form-control" %>
+  <div class="form-bootstrap">
+    <%= f.label :reception_number, class: "label-#{yield(:class_text)}" %>
+    <%= f.number_field :reception_number, class: "form-control" %>
+  </div>
 
-  <%= f.label :address, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_field :address, class: "form-control" %>
+  <div>
+    <%= f.label :customer_name, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_field :customer_name, placeholder: '入力必須', class: "form-control" %>
 
-  <%= f.label :phone_number, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_field :phone_number, class: "form-control" %>
+    <%= f.label :address, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_field :address, class: "form-control" %>
+  </div>
 
-  <%= f.label :mobile_phone_number, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_field :mobile_phone_number, class: "form-control" %>
+  <div class="form-bootstrap">
+    <%= f.label :phone_number, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_field :phone_number, placeholder: 'ハイフンなしで入力', class: "form-control" %>
+  </div>
 
-  <%= f.label :machine_model, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_field :machine_model, class: "form-control" %>
+  <div class="form-bootstrap">
+    <%= f.label :mobile_phone_number, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_field :mobile_phone_number, placeholder: 'ハイフンなしで入力', class: "form-control" %>
+  </div>
 
-  <%= f.label :condition, class: "label-#{yield(:class_text)}" %>
-  <%= f.text_area :condition, rows: 5, class: "form-control" %>
-  <%= f.collection_select :address, @users, :id, :name %>
+  <div class="form-bootstrap">
+    <%= f.label :machine_model, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_field :machine_model, class: "form-control" %>
+  </div>
+
+  <div class="form-bootstrap">
+    <%= f.label :category, class: "label-#{yield(:class_text)}" %>
+    <%= f.collection_select :category, @users, :id, :name, {include_blank: true}, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :condition, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_area :condition, rows: 3, placeholder: '500文字以内', class: "form-control" %>
+
+    <%= f.label :note, class: "label-#{yield(:class_text)}" %>
+    <%= f.text_area :note, rows: 3, placeholder: '500文字以内', class: "form-control" %>
+  </div>
+
+  <!-- <= f.collection_select :address, @users, :id, :name > -->
 
   <div class="center">
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>

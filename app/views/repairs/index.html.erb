@@ -25,9 +25,11 @@
         </td>
         <td>
           <%= link_to r.customer_name, repair_path(r) %>
+          <% if r.created_at.since(2.day) > Time.now %>
           <span class="badge badge-pill badge-info badge-new">
             <%= new_arrivals(r.created_at) %>
           </span>
+          <% end %>
         </td>
         <td><%= r.address.truncate(11) %></td>
         <td><%= r.machine_model %></td>

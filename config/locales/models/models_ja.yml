@@ -20,3 +20,9 @@ ja:
           mobile_phone_number: 携帯番号
           machine_model: 型式
           condition: 症状
+          category: カテゴリ
+          progress: 進捗
+          repair_staff: 担当者
+          completed: 完了日
+          note: 備考
+          reception_number: 受付番号

@@ -41,6 +41,9 @@ class RepairsController < ApplicationController
                                      :address,:phone_number,
                                      :mobile_phone_number,
                                      :machine_model,
-                                     :condition)
+                                     :condition,
+                                     :category,
+                                     :note,
+                                     :reception_number)
     end
 end

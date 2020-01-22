@@ -10,6 +10,13 @@
       <table class="table table-bordered table-condensed">
         <tbody>
           <tr>
+            <th><%= Repair.human_attribute_name :reception_day %></th>
+            <td colspan="3">
+              <%= @repair.reception_day.strftime("%Y年%-m月%d日") %>
+              (<%= $days_of_the_week[@repair.reception_day.wday] %>)
+            </td>
+          </tr>
+          <tr>
             <th width="100"><%= Repair.human_attribute_name :customer_name %></th>
             <td colspan="3"><%= @repair.customer_name %></td>
           </tr>
@@ -28,15 +35,22 @@
           <tbody>
             <tr>
               <th width="100"><%= Repair.human_attribute_name :machine_model %></th>
-              <td><%= @repair.machine_model %></td>
+              <td><%= blank_text(@repair.machine_model) %></td>
+              <td colspan="3"><%= @repair.category %></td>
             </tr>
             <tr>
               <th><%= Repair.human_attribute_name :condition %></th>
-              <td><%= @repair.condition %></td>
+              <td colspan="4"><%= @repair.condition %></td>
             </tr>
             <tr>
-              <th></th>
-              <td></td>
+              <th><%= Repair.human_attribute_name :note %></th>
+              <td colspan="4"><%= @repair.note %></td>
+            </tr>
+            <tr>
+              <th><%= Repair.human_attribute_name :progress %></th>
+              <td colspan="2"><%= @repair.progress %></td>
+              <td>完了日(demo)</td>
+              <td>担当(demo)</td>
             </tr>
           </tbody>
         </table>
