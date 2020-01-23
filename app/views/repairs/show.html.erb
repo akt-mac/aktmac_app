@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <table class="table table-bordered table-condensed">
+      <table class="table table-bordered table-condensed table-repair-show">
         <tbody>
           <tr>
             <th><%= Repair.human_attribute_name :reception_day %></th>
@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <th><%= Repair.human_attribute_name :address %></th>
-            <td colspan="3"><%= @repair.address %></td>
+            <td colspan="3"><%= blank_text(@repair.address) %></td>
           </tr>
           <tr>
             <th><%= Repair.human_attribute_name :phone_number %></th>
@@ -31,7 +31,7 @@
             <td><%= blank_text(@repair.mobile_phone_number) %></td>
           </tr>
         </tbody>
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed table-repair-show">
           <tbody>
             <tr>
               <th width="100"><%= Repair.human_attribute_name :machine_model %></th>

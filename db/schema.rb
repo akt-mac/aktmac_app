@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_22_080345) do
+ActiveRecord::Schema.define(version: 2020_01_23_060249) do
+
+  create_table "machine_categories", force: :cascade do |t|
+    t.integer "code"
+    t.string "product"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "repairs", force: :cascade do |t|
     t.datetime "reception_day"

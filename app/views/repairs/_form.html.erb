@@ -47,8 +47,6 @@
     <%= f.text_area :note, rows: 3, placeholder: '500文字以内', class: "form-control" %>
   </div>
 
-  <!-- <= f.collection_select :address, @users, :id, :name > -->
-
   <div class="center">
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>
   </div>
