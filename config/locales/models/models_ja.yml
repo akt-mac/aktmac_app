@@ -3,6 +3,7 @@ ja:
     models:
       user: ユーザー
       repair: 修理
+      machine_category: 製品種目
     attributes:
         user:
           id: ID
@@ -26,3 +27,6 @@ ja:
           completed: 完了日
           note: 備考
           reception_number: 受付番号
+        machine_category:
+          code: コード
+          product: 製品カテゴリ

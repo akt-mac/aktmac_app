@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   resources :users
   resources :repairs
+  resources :machine_categories
 end
