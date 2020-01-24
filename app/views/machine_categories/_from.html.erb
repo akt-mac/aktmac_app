@@ -1,0 +1,13 @@
+<%= form_with(model: @machine_category, local: true) do |f| %>
+  <%= render partial: 'shared/error_messages', locals: { obj: @machine_category } %>
+
+  <%= f.label :code, class: "label-#{yield(:class_text)}" %>
+  <%= f.number_field :code, class: "form-control" %>
+
+  <%= f.label :product, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :product, class: "form-control" %>
+
+  <div class="center">
+    <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>
+  </div>
+<% end %>

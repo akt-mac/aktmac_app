@@ -3,11 +3,11 @@ class RepairsController < ApplicationController
   before_action :logged_in_user, only: %i(index new create show edit update destroy)
 
   def index
-    @repairs = Repair.paginate(page: params[:page], per_page: 10)
+    @repairs = Repair.paginate(page: params[:page], per_page: 10).order(reception_day: :DESC, created_at: :DESC)
   end
 
   def new
-    @users = User.all
+    @machine_categories = MachineCategory.all
     @repair = Repair.new
   end
 

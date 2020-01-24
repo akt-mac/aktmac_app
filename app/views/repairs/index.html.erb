@@ -1,45 +1,47 @@
 <% provide(:title, "一覧") %>
 <h1>修理一覧</h1>
-<div>
-  <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
-  <table class="table table-bordered table-condensed">
-    <thead class="thead-light center">
-      <tr>
-        <th><%= Repair.human_attribute_name :reception_day %></th>
-        <th><%= Repair.human_attribute_name :customer_name %></th>
-        <th><%= Repair.human_attribute_name :address %></th>
-        <th><%= Repair.human_attribute_name :machine_model %></th>
-        <th>進捗</th>
-        <th>連絡</th>
-        <th>催促</th>
-        <th>修正</th>
-        <th>削除</th>
-      </tr>
-    </thead>
-    <tbody class="center">
-      <% @repairs.each do |r| %>
-      <tr>
-        <td>
-          <%= r.reception_day.strftime("%-m/%d") %>
-          (<%= $days_of_the_week[r.reception_day.wday] %>)
-        </td>
-        <td>
-          <%= link_to r.customer_name, repair_path(r) %>
-          <% if r.created_at.since(2.day) > Time.now %>
-          <span class="badge badge-pill badge-info badge-new">
-            <%= new_arrivals(r.created_at) %>
-          </span>
-          <% end %>
-        </td>
-        <td><%= r.address.truncate(11) %></td>
-        <td><%= r.machine_model %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="row justify-content-md-center">
+  <div class="col-md-12">
+    <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
+    <table class="table table-bordered table-condensed">
+      <thead class="thead-light">
+        <tr>
+          <th><%= Repair.human_attribute_name :reception_day %></th>
+          <th><%= Repair.human_attribute_name :customer_name %></th>
+          <th><%= Repair.human_attribute_name :address %></th>
+          <th><%= Repair.human_attribute_name :machine_model %></th>
+          <th>進捗</th>
+          <th>連絡</th>
+          <th>催促</th>
+          <th>修正</th>
+          <th>削除</th>
+        </tr>
+      </thead>
+      <tbody class="center">
+        <% @repairs.each do |r| %>
+        <tr>
+          <td>
+            <%= r.reception_day.strftime("%-m/%d") %>
+            (<%= $days_of_the_week[r.reception_day.wday] %>)
+          </td>
+          <td>
+            <%= link_to r.customer_name, repair_path(r) %>
+            <% if r.created_at.since(2.day) > Time.now %>
+            <span class="badge badge-pill badge-info badge-new">
+              <%= new_arrivals(r.created_at) %>
+            </span>
+            <% end %>
+          </td>
+          <td><%= r.address.truncate(11) %></td>
+          <td><%= r.machine_model %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -13,10 +13,11 @@ class MachineCategoriesController < ApplicationController
   def create
     @machine_category = MachineCategory.new(machine_category_params)
     if @machine_category.save
-      flash[:success] = "#{@machine_category.product}を登録しました。"
+      flash[:success] = "製品種目「#{@machine_category.product}」を登録しました。"
       redirect_to machine_categories_url
     else
-      render :new
+      flash[:danger] = @machine_category.errors.full_messages.join("<br>").html_safe
+      redirect_to machine_categories_url
     end
   end
 
@@ -24,9 +25,19 @@ class MachineCategoriesController < ApplicationController
   end
 
   def update
+    if @machine_category.update_attributes(machine_category_params)
+      flash[:success] = "「#{@machine_category.product}」の情報を更新しました。"
+      redirect_to machine_categories_url
+    else
+      flash[:danger] = @machine_category.errors.full_messages.join("<br>").html_safe
+      redirect_to machine_categories_url
+    end
   end
 
   def destroy
+    @machine_category.destroy
+    flash[:danger] = "「#{@machine_category.product}」を削除しました。"
+    redirect_to machine_categories_url
   end
 
   private

@@ -1,6 +1,34 @@
-<h1>MachineCategory#index</h1>
-<p>Find me in app/views/machine_category/index.html.erb</p>
-<% @machine_categories.each do |machine_category| %>
-  <p><%= machine_category.code %></p>
-  <p><%= machine_category.product %></p>
-<% end %>
+<% provide(:title, "製品種目一覧") %>
+<h1>製品種目一覧</h1>
+<div class="row justify-content-md-center">
+  <div class="col-md-6 offset-col-3">
+    <%= link_to "新規登録", new_machine_category_path, remote: true, class: "btn btn-primary btn-repair--new" %>
+    <table class="table table-bordered table-condensed table-hover table-category-index center">
+      <thead class="thead-light">
+        <tr>
+          <th width="100"></th>
+          <th><%= MachineCategory.human_attribute_name :code %></th>
+          <th><%= MachineCategory.human_attribute_name :product %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @machine_categories.each do |machine_category| %>
+          <tr>
+            <td><%= link_to "編集", edit_machine_category_path(machine_category), remote: true, class: "btn btn-sm btn-success" %></td>
+            <td><%= format('%04d', machine_category.code) %></td>
+            <td><%= machine_category.product %></td>
+            <td>
+              <%= link_to "削除", machine_category, method: :delete, data: { confirm: "「#{machine_category.product}」を削除します。",
+                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- モーダル -->
+<div id="new" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

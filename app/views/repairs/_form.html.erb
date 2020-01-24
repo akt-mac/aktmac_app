@@ -36,7 +36,7 @@
 
   <div class="form-bootstrap">
     <%= f.label :category, class: "label-#{yield(:class_text)}" %>
-    <%= f.collection_select :category, @users, :id, :name, {include_blank: true}, class: "form-control" %>
+    <%= f.collection_select :category, @machine_categories, :product, :product, {include_blank: true}, class: "form-control" %>
   </div>
 
   <div>
