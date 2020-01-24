@@ -11,7 +11,7 @@
         <tbody>
           <tr>
             <th width="100"><%= Repair.human_attribute_name :reception_day %></th>
-            <td colspan="3">
+            <td width="35%">
               <%= @repair.reception_day.strftime("%Y年%-m月%d日") %>
               (<%= $days_of_the_week[@repair.reception_day.wday] %>)
             </td>
@@ -20,7 +20,7 @@
           </tr>
           <tr>
             <th><%= Repair.human_attribute_name :customer_name %></th>
-            <td colspan="5"><%= @repair.customer_name %></td>
+            <td colspan="4"><%= @repair.customer_name %></td>
           </tr>
           <tr>
             <th><%= Repair.human_attribute_name :address %></th>

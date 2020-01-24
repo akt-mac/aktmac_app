@@ -9,7 +9,9 @@
           <th width="100"></th>
           <th><%= MachineCategory.human_attribute_name :code %></th>
           <th><%= MachineCategory.human_attribute_name :product %></th>
-          <th></th>
+          <% if current_user.admin? %>
+            <th></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -18,10 +20,12 @@
             <td><%= link_to "編集", edit_machine_category_path(machine_category), remote: true, class: "btn btn-sm btn-success" %></td>
             <td><%= format('%04d', machine_category.code) %></td>
             <td><%= machine_category.product %></td>
-            <td>
-              <%= link_to "削除", machine_category, method: :delete, data: { confirm: "「#{machine_category.product}」を削除します。",
-                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
-            </td>
+            <% if current_user.admin? %>
+              <td>
+                <%= link_to "削除", machine_category, method: :delete, data: { confirm: "「#{machine_category.product}」を削除します。",
+                    cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger" %>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
