@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
     <table class="table table-bordered table-condensed">
-      <thead class="thead-light">
+      <thead class="thead-light center">
         <tr>
           <th><%= Repair.human_attribute_name :reception_day %></th>
           <th><%= Repair.human_attribute_name :customer_name %></th>
@@ -34,11 +34,23 @@
           </td>
           <td><%= r.address.truncate(11) %></td>
           <td><%= r.machine_model %></td>
+          <td>
+            <% if r.progress == 1 %>
+            <%= link_to progress_text(r.progress), progress_path(r), class: "btn btn-sm btn-outline-secondary" %>
+            <% else %>
+            <%= link_to progress_text(r.progress), progress_path(r) %>
+            <% end %>
+          </td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            <% if current_user.admin? && !current_user?(@user) %>
+              <%= link_to "削除", r, method: :delete, data: { confirm: "#{r.customer_name}のデータを削除します。",
+                  verify: "#{r.customer_name}", verify_text: "削除するユーザー名を入力してください",
+                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-danger"%>
+            <% end %>
+          </td>
         </tr>
         <% end %>
       </tbody>

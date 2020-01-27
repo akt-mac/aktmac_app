@@ -30,6 +30,12 @@ ul {
   list-style-type: square;
 }
 
+input[type="radio"] {
+   -webkit-transform: scale(1.5);
+   transform: scale(1.5);
+   margin-right: 0.5em;
+}
+
 /* ヘッダー */
 
 #logo {

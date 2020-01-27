@@ -25,11 +25,4 @@ module ApplicationHelper
       text
     end
   end
-
-  # 受付番号表示
-  def format_reception_number(integer)
-    if integer.present?
-      format('%06d', integer.to_i)
-    end
-  end
 end
