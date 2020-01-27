@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_060249) do
+ActiveRecord::Schema.define(version: 2020_01_27_020800) do
 
   create_table "machine_categories", force: :cascade do |t|
     t.integer "code"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_01_23_060249) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"
-    t.string "progress"
+    t.integer "progress"
     t.string "repair_staff"
     t.datetime "completed"
     t.string "note"
