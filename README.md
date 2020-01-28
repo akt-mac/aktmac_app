@@ -1,22 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Development environment
 
-Things you may want to cover:
+* Windows 10 Pro x64
 
-* Ruby version
+* ATOM 1.43.0 x64
 
-* System dependencies
+* Command Prompt with Ruby
 
-* Configuration
+* GitHub
 
-* Database creation
+* Ruby 2.6.5p114 (2019-10-01 revision 67812) [x64-mingw32]
 
-* Database initialization
+* Rails 5.2.4.1
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* ActiveRecord version 5.2.4.1
