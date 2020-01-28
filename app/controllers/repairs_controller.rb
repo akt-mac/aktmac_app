@@ -1,7 +1,8 @@
 class RepairsController < ApplicationController
-  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress)
+  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted)
   before_action :all_machine_category, only: %i(new edit)
-  before_action :logged_in_user, only: %i(index new create show edit update destroy edit_progress update_progress)
+  before_action :logged_in_user, only: %i(index new create show edit update destroy
+                                          edit_progress update_progress edit_contacted update_contacted)
 
   def index
     @repairs = Repair.paginate(page: params[:page], per_page: 10).order(reception_day: :DESC, created_at: :DESC)
@@ -48,10 +49,23 @@ class RepairsController < ApplicationController
 
   def update_progress
     if @repair.update_attributes(repair_completed_params)
-      flash[:success] = "#{@repair.customer_name}の修理を完了しました。"
+      flash[:success] = "#{@repair.customer_name}の進捗情報を更新しました。"
       redirect_to repairs_url
     else
-      flash[:danger] = "エラー：進捗更新がされませんでした。やり直してください。"
+      flash[:danger] = "エラー：#{@repair.customer_name}の進捗更新がされませんでした。やり直してください。"
+      redirect_to repairs_url
+    end
+  end
+
+  def edit_contacted
+  end
+
+  def update_contacted
+    if @repair.update_attributes(repair_contacted_params)
+      flash[:success] = "#{@repair.customer_name}の連絡情報を更新しました。"
+      redirect_to repairs_url
+    else
+      flash[:danger] = "エラー：#{@repair.customer_name}の進捗更新がされませんでしたやり直してください。"
       redirect_to repairs_url
     end
   end
@@ -73,5 +87,10 @@ class RepairsController < ApplicationController
     # 修理進捗更新
     def repair_completed_params
       params.require(:repair).permit(:progress, :repair_staff, :completed)
+    end
+
+    # 修理連絡更新
+    def repair_contacted_params
+      params.require(:repair).permit(:contacted)
     end
 end

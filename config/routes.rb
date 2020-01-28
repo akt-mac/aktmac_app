@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get 'repairs/:id/edit_progress', to: 'repairs#edit_progress', as: 'progress'
   patch 'repairs/:id/update_progress', to: 'repairs#update_progress', as: 'update_progress'
 
+  # 連絡チェック
+  get 'repairs/:id/edit_contacted', to: 'repairs#edit_contacted', as: 'contacted'
+  patch 'repairs/:id/update_contacted', to: 'repairs#update_contacted', as: 'update_contacted'
+
   resources :users
   resources :repairs
   resources :machine_categories

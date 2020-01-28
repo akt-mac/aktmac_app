@@ -20,7 +20,7 @@ module ApplicationHelper
   # 値が無い場合は未登録表示
   def blank_text(text)
     if text.blank?
-      "未登録"
+      "―"
     else
       text
     end
