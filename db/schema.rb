@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_023445) do
+ActiveRecord::Schema.define(version: 2020_01_28_063538) do
 
   create_table "machine_categories", force: :cascade do |t|
     t.integer "code"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_023445) do
     t.datetime "completed"
     t.string "note"
     t.integer "reception_number"
+    t.integer "contacted", default: 1
   end
 
   create_table "users", force: :cascade do |t|
