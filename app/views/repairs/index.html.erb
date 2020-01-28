@@ -43,12 +43,14 @@
           </td>
           <td></td>
           <td></td>
-          <td></td>
+          <td>
+            <%= link_to "修正", edit_repair_path(r), class: "btn btn-sm btn-success" %>
+          </td>
           <td>
             <% if current_user.admin? && !current_user?(@user) %>
               <%= link_to "削除", r, method: :delete, data: { confirm: "#{r.customer_name}のデータを削除します。",
                   verify: "#{r.customer_name}", verify_text: "削除するユーザー名を入力してください",
-                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-danger"%>
+                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
             <% end %>
           </td>
         </tr>

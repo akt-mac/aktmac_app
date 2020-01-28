@@ -10,16 +10,36 @@
     <div class="modal-body">
       <div class="row justify-content-md-center">
         <div class="col-md-8 col-offset-2 center">
-          <p><%= @repair.customer_name %></p>
-          <p><%= @repair.machine_model %></p>
+          <table class="table table-bordered table-condensed">
+            <tr>
+              <td><%= @repair.customer_name %></td>
+              <td><%= @repair.machine_model %></td>
+            </tr>
+          </table>
           <%= form_with(model: @repair, url: update_progress_path(@repair), local: true, method: :patch) do |f| %>
-            <% if @repair.progress == 1  %>
-              <%= f.radio_button :progress, 2 %>
-              <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
-            <% else %>
-              <%= f.radio_button :progress, 1 %>
-              <%= f.label "未完了に戻す", class: "label-#{yield(:class_text)}" %>
-            <% end %>
+            <table class="table table-bordered table-condensed">
+              <tr>
+                <td>
+                  完了日&emsp;
+                  <%= f.date_field :completed, value: date_text(@repair.completed), class: "form-control-sm" %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  修理担当者&emsp;
+                  <%= f.collection_select :repair_staff, @users, :name, :name, {include_blank: true}, class: "form-control-sm" %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.radio_button :progress, 2 %>
+                  <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
+                  &emsp;&emsp;
+                  <%= f.radio_button :progress, 1 %>
+                  <%= f.label "未完了", class: "label-#{yield(:class_text)}" %>
+                </td>
+              </tr>
+            </table>
             <div>
               <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
             </div>

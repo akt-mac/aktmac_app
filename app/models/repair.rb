@@ -6,7 +6,8 @@ class Repair < ApplicationRecord
   validates :machine_model, length: { maximum: 30 }
   validates :condition, length: { maximum: 500 }
   validates :category, length: { maximum: 30 }
-  validates :progress, length: { maximum: 10 }, allow_blank: true
+  validates :progress, length: { maximum: 10 }
   validates :repair_staff, length: { maximum: 50 }
   validates :note, length: { maximum: 500 }
+  validates :repair_staff, length: { maximum: 50 }
 end

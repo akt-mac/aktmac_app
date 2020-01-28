@@ -38,21 +38,27 @@
             <tr>
               <th width="100"><%= Repair.human_attribute_name :machine_model %></th>
               <td><%= blank_text(@repair.machine_model) %></td>
-              <td colspan="3"><%= @repair.category %></td>
+              <td colspan="2"><%= @repair.category %></td>
             </tr>
             <tr>
               <th><%= Repair.human_attribute_name :condition %></th>
-              <td colspan="4"><%= @repair.condition %></td>
+              <td colspan="3"><%= @repair.condition %></td>
             </tr>
             <tr>
               <th><%= Repair.human_attribute_name :note %></th>
-              <td colspan="4"><%= @repair.note %></td>
+              <td colspan="3"><%= @repair.note %></td>
             </tr>
             <tr>
               <th><%= Repair.human_attribute_name :progress %></th>
-              <td colspan="2"><%= progress_text(@repair.progress) %></td>
-              <td>完了日(demo)</td>
-              <td>担当(demo)</td>
+              <td><%= progress_text(@repair.progress) %></td>
+              <td>
+                完了日：
+                <%= @repair.completed.strftime("%Y年%-m月%d日") %>
+                (<%= $days_of_the_week[@repair.reception_day.wday] %>)
+              </td>
+              <td>
+                <%= Repair.human_attribute_name :repair_staff %>：<%= @repair.repair_staff %>
+              </td>
             </tr>
           </tbody>
         </table>

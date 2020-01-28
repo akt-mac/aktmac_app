@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     @repair = Repair.find(params[:id])
   end
 
+  def all_machine_category
+    @machine_categories = MachineCategory.all
+  end
+
   def set_machine_category
     @machine_category = MachineCategory.find(params[:id])
   end
