@@ -1,6 +1,6 @@
 class RepairsController < ApplicationController
   before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted)
-  before_action :all_machine_category, only: %i(new edit)
+  before_action :all_machine_category, only: %i(new create edit update)
   before_action :logged_in_user, only: %i(index new create show edit update destroy
                                           edit_progress update_progress edit_contacted update_contacted)
 
@@ -30,10 +30,10 @@ class RepairsController < ApplicationController
 
   def update
     if @repair.update_attributes(repair_params)
-      flash[:success] = "#{@repair.customer_name}の修理を完了しました。"
+      flash[:success] = "#{@repair.customer_name}の情報を更新しました。"
       redirect_to repairs_url
     else
-      rendr :edit
+      render :edit
     end
   end
 
@@ -49,10 +49,16 @@ class RepairsController < ApplicationController
 
   def update_progress
     if @repair.update_attributes(repair_completed_params)
-      flash[:success] = "#{@repair.customer_name}の進捗情報を更新しました。"
+      if @repair.progress == 2
+        flash[:success] = "#{@repair.customer_name}の修理を完了しました。"
+      elsif @repair.progress == 1
+        flash[:warning] = "#{@repair.customer_name}の修理完了を解除しました。"
+      else
+        flash[:success] = "#{@repair.customer_name}の進捗情報を更新しました。"
+      end
       redirect_to repairs_url
     else
-      flash[:danger] = "エラー：#{@repair.customer_name}の進捗更新がされませんでした。やり直してください。"
+      flash[:danger] = "エラー：#{@repair.customer_name}のデータ更新がされませんでした。やり直してください。"
       redirect_to repairs_url
     end
   end
@@ -62,10 +68,16 @@ class RepairsController < ApplicationController
 
   def update_contacted
     if @repair.update_attributes(repair_contacted_params)
-      flash[:success] = "#{@repair.customer_name}の連絡情報を更新しました。"
+      if @repair.contacted == 2
+        flash[:success] = "#{@repair.customer_name}へ連絡済にしました。"
+      elsif @repair.contacted == 1
+        flash[:warning] = "#{@repair.customer_name}の連絡済を解除しました。"
+      else
+        flash[:success] = "#{@repair.customer_name}の連絡情報を更新しました。"
+      end
       redirect_to repairs_url
     else
-      flash[:danger] = "エラー：#{@repair.customer_name}の進捗更新がされませんでしたやり直してください。"
+      flash[:danger] = "エラー：#{@repair.customer_name}のデータ更新がされませんでしたやり直してください。"
       redirect_to repairs_url
     end
   end
