@@ -27,6 +27,8 @@ ja:
           completed: 完了日
           note: 備考
           reception_number: 受付番号
+          contacted: 連絡
+          delivery: 引渡
         machine_category:
           code: コード
           product: 製品カテゴリ

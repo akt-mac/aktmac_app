@@ -10,8 +10,9 @@
           <th><%= Repair.human_attribute_name :customer_name %></th>
           <th><%= Repair.human_attribute_name :address %></th>
           <th><%= Repair.human_attribute_name :machine_model %></th>
-          <th>進捗</th>
-          <th>連絡</th>
+          <th><%= Repair.human_attribute_name :progress %></th>
+          <th><%= Repair.human_attribute_name :contacted %></th>
+          <th><%= Repair.human_attribute_name :delivery %></th>
           <th>催促</th>
           <th>修正</th>
           <th>削除</th>
@@ -46,6 +47,13 @@
               <%= link_to progress_text(r.contacted), contacted_path(r), class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
               <%= link_to progress_text(r.contacted), contacted_path(r) %>
+            <% end %>
+          </td>
+          <td>
+            <% if r.delivery == 1 %>
+              <%= link_to progress_text(r.delivery), update_delivery_path(r),method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+            <% else %>
+              <%= link_to progress_text(r.delivery), update_delivery_path(r),method: :patch %>
             <% end %>
           </td>
           <td></td>

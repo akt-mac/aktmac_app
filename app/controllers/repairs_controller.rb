@@ -1,8 +1,10 @@
 class RepairsController < ApplicationController
-  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted)
+  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery)
   before_action :all_machine_category, only: %i(new create edit update)
   before_action :logged_in_user, only: %i(index new create show edit update destroy
-                                          edit_progress update_progress edit_contacted update_contacted)
+                                          edit_progress update_progress edit_contacted update_contacted update_delivery)
+
+  UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 
   def index
     @repairs = Repair.paginate(page: params[:page], per_page: 10).order(reception_day: :DESC, created_at: :DESC)
@@ -15,7 +17,7 @@ class RepairsController < ApplicationController
   def create
     @repair = Repair.new(repair_params)
     if @repair.save
-      flash[:success] = "#{@repair.customer_name}の修理受付をしました。"
+      flash[:success] = "#{@repair.customer_name}：修理受付"
       redirect_to repairs_url
     else
       render :new
@@ -50,15 +52,15 @@ class RepairsController < ApplicationController
   def update_progress
     if @repair.update_attributes(repair_completed_params)
       if @repair.progress == 2
-        flash[:success] = "#{@repair.customer_name}の修理を完了しました。"
+        flash[:success] = "#{@repair.customer_name}：修理完了"
       elsif @repair.progress == 1
-        flash[:warning] = "#{@repair.customer_name}の修理完了を解除しました。"
+        flash[:warning] = "#{@repair.customer_name}：修理完了を解除しました。"
       else
-        flash[:success] = "#{@repair.customer_name}の進捗情報を更新しました。"
+        flash[:success] = "#{@repair.customer_name}：進捗情報を更新しました。"
       end
       redirect_to repairs_url
     else
-      flash[:danger] = "エラー：#{@repair.customer_name}のデータ更新がされませんでした。やり直してください。"
+      flash[:danger] = UPDATE_ERROR_MSG
       redirect_to repairs_url
     end
   end
@@ -69,17 +71,34 @@ class RepairsController < ApplicationController
   def update_contacted
     if @repair.update_attributes(repair_contacted_params)
       if @repair.contacted == 2
-        flash[:success] = "#{@repair.customer_name}へ連絡済にしました。"
+        flash[:success] = "#{@repair.customer_name}：連絡済"
       elsif @repair.contacted == 1
-        flash[:warning] = "#{@repair.customer_name}の連絡済を解除しました。"
+        flash[:warning] = "#{@repair.customer_name}：連絡済を解除しました。"
       else
-        flash[:success] = "#{@repair.customer_name}の連絡情報を更新しました。"
+        flash[:success] = "#{@repair.customer_name}：連絡情報を更新しました。"
       end
       redirect_to repairs_url
     else
-      flash[:danger] = "エラー：#{@repair.customer_name}のデータ更新がされませんでしたやり直してください。"
+      flash[:danger] = UPDATE_ERROR_MSG
       redirect_to repairs_url
     end
+  end
+
+  def update_delivery
+    if @repair.delivery == 1
+      if @repair.update_attributes(delivery: 2)
+        flash[:success] = "#{@repair.customer_name}：引渡し済"
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
+    elsif @repair.delivery == 2
+      if @repair.update_attributes(delivery: 1)
+        flash[:warning] = "#{@repair.customer_name}：引渡し済を解除しました。"
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
+    end
+    redirect_to repairs_url
   end
 
   private

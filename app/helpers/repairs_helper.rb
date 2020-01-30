@@ -19,11 +19,11 @@ module RepairsHelper
   end
 
   # 修理完了日表示 date_fieldにて完了日が空の場合は今日の日付を表示する
-  def date_text(completed_time)
-    unless completed_time.blank?
-      completed_time.to_date
-    else
+  def date_text(completed_day)
+    if completed_day.blank?
       Date.today
+    else
+      completed_day.to_date
     end
   end
 end
