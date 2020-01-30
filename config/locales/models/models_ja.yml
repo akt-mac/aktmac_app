@@ -23,7 +23,7 @@ ja:
           condition: 症状
           category: カテゴリ
           progress: 進捗
-          repair_staff: 修理担当者
+          repair_staff: 修理者
           completed: 完了日
           note: 備考
           reception_number: 受付番号

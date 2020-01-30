@@ -3,7 +3,7 @@ class MachineCategoriesController < ApplicationController
   before_action :logged_in_user, only: %i(index new create edit update destroy)
 
   def index
-    @machine_categories = MachineCategory.all
+    @machine_categories = MachineCategory.all.order(code: :ASC)
   end
 
   def new

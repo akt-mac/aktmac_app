@@ -168,7 +168,7 @@ input[type="radio"] {
 
 .badge-new{
   animation: flash 2s linear infinite;
-  background:#0091EA;
+  background: #0091EA;
 }
 
 @keyframes flash {
@@ -186,6 +186,26 @@ input[type="radio"] {
 
 .btn-repair--new {
   margin: 10px 0 10px 0;
+}
+
+.repair_check {
+  color: #5cb85c;
+}
+
+.badge-update{
+  animation: flash 2s linear infinite;
+  background: #d9534f;
+}
+
+@keyframes flash {
+  0%,100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+    background: #66B2FF;
+  }
 }
 
 /* 修理詳細ページ */

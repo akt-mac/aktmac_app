@@ -7,7 +7,8 @@ class RepairsController < ApplicationController
   UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 
   def index
-    @repairs = Repair.paginate(page: params[:page], per_page: 10).order(reception_day: :DESC, created_at: :DESC)
+    @repairs = Repair.paginate(page: params[:page], per_page: 10).
+                      order(delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
   end
 
   def new
@@ -69,19 +70,20 @@ class RepairsController < ApplicationController
   end
 
   def update_contacted
-    if @repair.update_attributes(repair_contacted_params)
-      if @repair.contacted == 2
+    if @repair.contacted == 1
+      if @repair.update_attributes(contacted: 2)
         flash[:success] = "#{@repair.customer_name}：連絡済"
-      elsif @repair.contacted == 1
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
+    elsif @repair.contacted == 2
+      if @repair.update_attributes(contacted: 1)
         flash[:warning] = "#{@repair.customer_name}：連絡済を解除しました。"
       else
-        flash[:success] = "#{@repair.customer_name}：連絡情報を更新しました。"
+        flash[:danger] = UPDATE_ERROR_MSG
       end
-      redirect_to repairs_url
-    else
-      flash[:danger] = UPDATE_ERROR_MSG
-      redirect_to repairs_url
     end
+    redirect_to repairs_url
   end
 
   def update_delivery

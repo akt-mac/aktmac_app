@@ -12,7 +12,7 @@ module ApplicationHelper
   # 登録から2日以内はnewマークを表示
   def new_arrivals(created_at)
     text = "new"
-    if created_at.since(2.day) > Time.now
+    if created_at.since(1.day) > Time.now
       text
     end
   end

@@ -3,7 +3,7 @@
 <div class="row justify-content-md-center">
   <div class="col-md-12">
     <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
-    <table class="table table-bordered table-condensed">
+    <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">
         <tr>
           <th><%= Repair.human_attribute_name :reception_day %></th>
@@ -26,12 +26,15 @@
             (<%= $days_of_the_week[r.reception_day.wday] %>)
           </td>
           <td>
-            <%= link_to r.customer_name, repair_path(r) %>
-            <% if r.created_at.since(2.day) > Time.now %>
+            <%= link_to r.customer_name, repair_path(r), remote: true %>
+            <% if r.created_at.since(1.day) > Time.now %>
             <span class="badge badge-pill badge-info badge-new">
               <%= new_arrivals(r.created_at) %>
             </span>
             <% end %>
+            <span class="badge badge-pill badge-info badge-update">
+              update
+            </span>
           </td>
           <td><%= r.address.truncate(11) %></td>
           <td><%= r.machine_model %></td>
@@ -39,21 +42,21 @@
             <% if r.progress == 1 %>
               <%= link_to progress_text(r.progress), progress_path(r), class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.progress), progress_path(r) %>
+              <%= link_to progress_text(r.progress), progress_path(r), class: "repair_check" %>
             <% end %>
           </td>
           <td>
             <% if r.contacted == 1 %>
-              <%= link_to progress_text(r.contacted), contacted_path(r), class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.contacted), update_contacted_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.contacted), contacted_path(r) %>
+              <%= link_to progress_text(r.contacted), update_contacted_path(r), method: :patch, class: "repair_check" %>
             <% end %>
           </td>
           <td>
             <% if r.delivery == 1 %>
-              <%= link_to progress_text(r.delivery), update_delivery_path(r),method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.delivery), update_delivery_path(r),method: :patch %>
+              <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "repair_check" %>
             <% end %>
           </td>
           <td></td>
@@ -72,3 +75,6 @@
     </table>
   </div>
 </div>
+
+<!-- モーダル -->
+<div id="show" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
