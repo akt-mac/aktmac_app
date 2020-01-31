@@ -167,11 +167,11 @@ input[type="radio"] {
 /* お知らぜバッジ */
 
 .badge-new{
-  animation: flash 2s linear infinite;
+  animation: badge-new 2s linear infinite;
   background: #0091EA;
 }
 
-@keyframes flash {
+@keyframes badge-new {
   0%,100% {
     opacity: 1;
   }
@@ -179,6 +179,22 @@ input[type="radio"] {
   50% {
     opacity: 1;
     background:#66B2FF;
+  }
+}
+
+.badge-update{
+  animation: badge-update 1.5s linear infinite;
+  background: #d9534f;
+}
+
+@keyframes badge-update {
+  0%,100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+    background: #fff;
   }
 }
 
@@ -190,22 +206,6 @@ input[type="radio"] {
 
 .repair_check {
   color: #5cb85c;
-}
-
-.badge-update{
-  animation: flash 2s linear infinite;
-  background: #d9534f;
-}
-
-@keyframes flash {
-  0%,100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 1;
-    background: #66B2FF;
-  }
 }
 
 /* 修理詳細ページ */

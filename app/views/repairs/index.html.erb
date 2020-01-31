@@ -20,7 +20,13 @@
       </thead>
       <tbody class="center">
         <% @repairs.each do |r| %>
-        <tr>
+          <% if r.delivery == 2 %>
+            <tr bgcolor="<%= "#e2e4eb" %>">
+          <% elsif r.progress == 2 && r.delivery == 1 %>
+            <tr bgcolor="<%= "#F4F4F4" %>">
+          <% else %>
+            <tr>
+          <% end %>
           <td>
             <%= r.reception_day.strftime("%-m/%d") %>
             (<%= $days_of_the_week[r.reception_day.wday] %>)
@@ -28,21 +34,23 @@
           <td>
             <%= link_to r.customer_name, repair_path(r), remote: true %>
             <% if r.created_at.since(1.day) > Time.now %>
-            <span class="badge badge-pill badge-info badge-new">
-              <%= new_arrivals(r.created_at) %>
-            </span>
+              <span class="badge badge-pill badge-info badge-new">
+                new
+              </span>
             <% end %>
-            <span class="badge badge-pill badge-info badge-update">
-              update
-            </span>
+            <% if r.updated_at.since(3.second) > Time.now %>
+              <span class="badge badge-pill badge-info badge-update">
+                update
+              </span>
+            <% end %>
           </td>
           <td><%= r.address.truncate(11) %></td>
           <td><%= r.machine_model %></td>
           <td>
             <% if r.progress == 1 %>
-              <%= link_to progress_text(r.progress), progress_path(r), class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.progress), progress_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.progress), progress_path(r), class: "repair_check" %>
+              <%= link_to progress_text(r.progress), progress_path(r), remote: true, class: "repair_check" %>
             <% end %>
           </td>
           <td>
@@ -78,3 +86,4 @@
 
 <!-- モーダル -->
 <div id="show" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit_progress" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
