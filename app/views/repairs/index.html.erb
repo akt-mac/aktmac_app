@@ -7,6 +7,7 @@
       <thead class="thead-light center">
         <tr>
           <th><%= Repair.human_attribute_name :reception_day %></th>
+          <th><%= Repair.human_attribute_name :reception_number %></th>
           <th><%= Repair.human_attribute_name :customer_name %></th>
           <th><%= Repair.human_attribute_name :address %></th>
           <th><%= Repair.human_attribute_name :machine_model %></th>
@@ -31,6 +32,7 @@
             <%= r.reception_day.strftime("%-m/%d") %>
             (<%= $days_of_the_week[r.reception_day.wday] %>)
           </td>
+          <td><%= blank_text(format_reception_number(r.reception_number)) %></td>
           <td>
             <%= link_to r.customer_name, repair_path(r), remote: true %>
             <% if r.created_at.since(1.day) > Time.now %>
