@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def all_machine_category
-    @machine_categories = MachineCategory.all
+    @machine_categories = MachineCategory.all.order(code: :ASC)
   end
 
   def set_machine_category

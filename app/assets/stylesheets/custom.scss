@@ -121,7 +121,7 @@ input[type="radio"] {
   }
 }
 
-/* ユーザー一覧ページネーション */
+/* ページネーション */
 
 .pagination {
   height: auto;
@@ -157,7 +157,8 @@ input[type="radio"] {
 }
 
 .pagination .disabled {
-  color: #666666;
+  color: white;
+  background-color: grey;
   padding: 11px 17px;
   border: 1px solid #666666;
   border-radius: 23px;
@@ -206,6 +207,10 @@ input[type="radio"] {
 
 .repair_check {
   color: #5cb85c;
+}
+
+.reminder_check {
+  color: #d9534f;
 }
 
 /* 修理詳細ページ */

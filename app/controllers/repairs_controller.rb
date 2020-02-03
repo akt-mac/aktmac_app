@@ -1,14 +1,14 @@
 class RepairsController < ApplicationController
-  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery)
+  before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
   before_action :all_machine_category, only: %i(new create edit update)
   before_action :logged_in_user, only: %i(index new create show edit update destroy
-                                          edit_progress update_progress edit_contacted update_contacted update_delivery)
+                                          edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
 
   UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 
   def index
-    @repairs = Repair.paginate(page: params[:page], per_page: 10).
-                      order(delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
+    @repairs = Repair.paginate(page: params[:page], per_page: 15).
+                      order(reminder: :DESC, delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
   end
 
   def new
@@ -47,7 +47,7 @@ class RepairsController < ApplicationController
   end
 
   def edit_progress
-    @users = User.all
+    @users = User.where(admin: false).order(id: :ASC)
   end
 
   def update_progress
@@ -89,6 +89,7 @@ class RepairsController < ApplicationController
   def update_delivery
     if @repair.delivery == 1
       if @repair.update_attributes(delivery: 2)
+        @repair.update_attributes(reminder: 1)
         flash[:success] = "#{@repair.customer_name}：引渡し済"
       else
         flash[:danger] = UPDATE_ERROR_MSG
@@ -96,6 +97,23 @@ class RepairsController < ApplicationController
     elsif @repair.delivery == 2
       if @repair.update_attributes(delivery: 1)
         flash[:warning] = "#{@repair.customer_name}：引渡し済を解除しました。"
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
+    end
+    redirect_to repairs_url
+  end
+
+  def update_reminder
+    if @repair.reminder == 1
+      if @repair.update_attributes(reminder: 2)
+        flash[:success] = "#{@repair.customer_name}：催促有り"
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
+    elsif @repair.reminder == 2
+      if @repair.update_attributes(reminder: 1)
+        flash[:warning] = "#{@repair.customer_name}：催促解除"
       else
         flash[:danger] = UPDATE_ERROR_MSG
       end
@@ -120,10 +138,5 @@ class RepairsController < ApplicationController
     # 修理進捗更新
     def repair_completed_params
       params.require(:repair).permit(:progress, :repair_staff, :completed)
-    end
-
-    # 修理連絡更新
-    def repair_contacted_params
-      params.require(:repair).permit(:contacted)
     end
 end

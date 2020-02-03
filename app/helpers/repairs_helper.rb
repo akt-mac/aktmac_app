@@ -18,6 +18,17 @@ module RepairsHelper
     end
   end
 
+  # 催促表示
+  def reminder_text(reminder)
+    if reminder == 1
+      "―"
+    elsif reminder == 2
+      "✔"
+    else
+      "未登録"
+    end
+  end
+
   # 修理完了日表示 date_fieldにて完了日が空の場合は今日の日付を表示する
   def date_text(completed_day)
     if completed_day.blank?

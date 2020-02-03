@@ -48,6 +48,7 @@
   </div>
 
   <div class="center">
+    <%= link_to "戻る", repairs_path, class: "btn btn-secondary btn-lg btn-#{yield(:class_text)}" %>
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>
   </div>
 <% end %>

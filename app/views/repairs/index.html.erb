@@ -3,25 +3,29 @@
 <div class="row justify-content-md-center">
   <div class="col-md-12">
     <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
+    <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
     <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">
         <tr>
           <th><%= Repair.human_attribute_name :reception_day %></th>
           <th><%= Repair.human_attribute_name :reception_number %></th>
           <th><%= Repair.human_attribute_name :customer_name %></th>
-          <th><%= Repair.human_attribute_name :address %></th>
           <th><%= Repair.human_attribute_name :machine_model %></th>
           <th><%= Repair.human_attribute_name :progress %></th>
           <th><%= Repair.human_attribute_name :contacted %></th>
           <th><%= Repair.human_attribute_name :delivery %></th>
-          <th>催促</th>
-          <th>修正</th>
-          <th>削除</th>
+          <th><%= Repair.human_attribute_name :reminder %></th>
+          <th></th>
+          <% if current_user.admin? && !current_user?(@user) %>
+            <th></th>
+          <% end %>
         </tr>
       </thead>
       <tbody class="center">
         <% @repairs.each do |r| %>
-          <% if r.delivery == 2 %>
+          <% if r.reminder == 2 %>
+            <tr bgcolor="<%= "#FFCCCC" %>">
+          <% elsif r.delivery == 2 %>
             <tr bgcolor="<%= "#e2e4eb" %>">
           <% elsif r.progress == 2 && r.delivery == 1 %>
             <tr bgcolor="<%= "#F4F4F4" %>">
@@ -46,7 +50,6 @@
               </span>
             <% end %>
           </td>
-          <td><%= r.address.truncate(11) %></td>
           <td><%= r.machine_model %></td>
           <td>
             <% if r.progress == 1 %>
@@ -65,24 +68,33 @@
           <td>
             <% if r.delivery == 1 %>
               <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
-            <% else %>
+            <% elsif r.delivery == 2 %>
               <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "repair_check" %>
             <% end %>
           </td>
-          <td></td>
+          <td>
+            <% if r.delivery == 1 && r.reminder == 1 %>
+              <%= link_to reminder_text(r.reminder), update_reminder_path(r), method: :patch %>
+            <% elsif r.delivery == 1 && r.reminder == 2 %>
+              <%= link_to reminder_text(r.reminder), update_reminder_path(r), method: :patch, class: "reminder_check" %>
+            <% elsif r.delivery == 2 && r.reminder == 1 %>
+              <%= reminder_text(r.reminder) %>
+            <% end %>
+          </td>
           <td>
             <%= link_to "修正", edit_repair_path(r), class: "btn btn-sm btn-success" %>
           </td>
-          <td>
-            <% if current_user.admin? && !current_user?(@user) %>
+          <% if current_user.admin? && !current_user?(@user) %>
+            <td>
               <%= link_to "削除", r, method: :delete, data: { confirm: "#{r.customer_name}のデータを削除します。",
                   cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
-            <% end %>
-          </td>
+            </td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
   </div>
 </div>
 

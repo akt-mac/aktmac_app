@@ -13,11 +13,13 @@ Rails.application.routes.draw do
   patch 'repairs/:id/update_progress', to: 'repairs#update_progress', as: 'update_progress'
 
   # 連絡チェック
-  get 'repairs/:id/edit_contacted', to: 'repairs#edit_contacted', as: 'contacted'
   patch 'repairs/:id/update_contacted', to: 'repairs#update_contacted', as: 'update_contacted'
 
   # 引渡チェック
   patch 'repairs/:id/update_delivery', to: 'repairs#update_delivery', as: 'update_delivery'
+
+  # 催促チェック
+  patch 'repairs/:id/update_reminder', to: 'repairs#update_reminder', as: 'update_reminder'
 
   resources :users
   resources :repairs
