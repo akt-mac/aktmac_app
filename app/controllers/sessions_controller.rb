@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_back_or repairs_url
     else
-      flash.now[:danger] = "認証に失敗しました。"
-      render :new
+      flash[:danger] = "認証に失敗しました。"
+      redirect_to root_url
     end
   end
 

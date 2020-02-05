@@ -2,7 +2,17 @@
 <h1>修理一覧</h1>
 <div class="row justify-content-md-center">
   <div class="col-md-12">
-    <%= link_to "修理登録", new_repair_path, class: "btn btn-lg btn-primary btn-repair--new" %>
+    <div class="input-menu">
+      <%= link_to "修理登録", new_repair_path, class: "btn btn-primary btn-repair--new" %>
+      <div class="col-md-6 input-group">
+        <%= form_tag(repairs_path, method: :get) do %>
+          <span class="input-group-btn">
+            <%= text_field_tag :search, '', placeholder: 'フリーワード検索', class: "form-control" %>
+            <%= submit_tag 'OK', name: nil, class: "btn btn-primary" %>
+          </span>
+        <% end %>
+      </div>
+    </div>
     <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
     <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">

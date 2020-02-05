@@ -3,31 +3,26 @@
   <div class="center jumbotron jumbotron-fluid">
     <div class="row justify-content-md-center top-login">
       <div class="col-md-4 col-md-offset-4">
-        <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+        <% if logged_in? %>
+          <h1>ログイン中です。</h1>
+        <% else %>
+          <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+            <p><%= f.label "メールアドレス", class: "label-login" %></p>
+            <%= f.email_field :email, class: 'form-control' %>
 
-          <p><%= f.label "メールアドレス", class: "label-login" %></p>
-          <%= f.email_field :email, class: 'form-control' %>
+            <p><%= f.label "パスワード", class: "label-login" %></p>
+            <%= f.password_field :password, class: 'form-control' %>
 
-          <p><%= f.label "パスワード", class: "label-login" %></p>
-          <%= f.password_field :password, class: 'form-control' %>
-
-          <%= f.label :remember_me, class: "checkbox inline checkbox-login", for: "remember-me" do %>
-            <%= f.check_box :remember_me, id: "remember-me" %>
-            <span>ログイン情報を記憶する</span>
+            <%= f.label :remember_me, class: "checkbox inline checkbox-login", for: "remember-me" do %>
+              <%= f.check_box :remember_me, id: "remember-me" %>
+              <span>ログイン情報を記憶する</span>
+            <% end %>
+            <div class="center">
+              <%= f.submit "ログイン", class: "btn btn-primary btn-login" %>
+            </div>
           <% end %>
-
-
-          <div class="center">
-            <%= f.submit "ログイン", class: "btn btn-primary btn-login" %>
-          </div>
         <% end %>
       </div>
-    </div>
-
-    <div class="btn-login">
-      <%= link_to "ユーザー登録(test)", signup_path, class: "btn btn-primary" %>
-      <%= link_to "ユーザーページ(test)", user_path(id: 1), class: "btn btn-success" %>
-      <%= link_to "修理一覧(test)", repairs_path,class: "btn btn-success" %>
     </div>
   </div>
 </div>

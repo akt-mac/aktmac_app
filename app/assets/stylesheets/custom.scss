@@ -202,7 +202,7 @@ input[type="radio"] {
 /* 修理一覧ページ */
 
 .btn-repair--new {
-  margin: 10px 0 10px 0;
+  margin-bottom: 20px;
 }
 
 .repair_check {
@@ -211,6 +211,18 @@ input[type="radio"] {
 
 .reminder_check {
   color: #d9534f;
+}
+
+.input-menu {
+  display: inline-flex;
+}
+
+.input-group {
+  margin-left: 50px;
+}
+
+.input-group-btn {
+  display: inline-flex;
 }
 
 /* 修理詳細ページ */
