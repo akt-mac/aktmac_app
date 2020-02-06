@@ -7,6 +7,10 @@ class RepairsController < ApplicationController
   UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 
   def index
+    # 表示テスト 検索フォームの入力値を取り出す
+    hash = ActiveSupport::HashWithIndifferentAccess.new(search: params[:search])
+    @search_hash = hash[:search]
+
     @repairs = Repair.paginate(page: params[:page], per_page: 15).
                       order(reminder: :DESC, delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
   end

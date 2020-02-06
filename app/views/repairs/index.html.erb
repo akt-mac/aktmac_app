@@ -4,15 +4,23 @@
   <div class="col-md-12">
     <div class="input-menu">
       <%= link_to "修理登録", new_repair_path, class: "btn btn-primary btn-repair--new" %>
-      <div class="col-md-6 input-group">
-        <%= form_tag(repairs_path, method: :get) do %>
-          <span class="input-group-btn">
-            <%= text_field_tag :search, '', placeholder: 'フリーワード検索', class: "form-control" %>
+      <%= form_tag(repairs_path, method: :get) do %>
+        <div class="col-md-8 input-group">
+          <%= text_field_tag :search, '', placeholder: 'フリーワード検索', class: "form-control" %>
+          <div class="input-group-append">
             <%= submit_tag 'OK', name: nil, class: "btn btn-primary" %>
-          </span>
-        <% end %>
-      </div>
+          </div>
+        </div>
+      <% end %>
     </div>
+
+    <div>
+      表示テスト
+    <% unless params[:search].blank? %>
+      <%= @search_hash %>
+    <% end %>
+    </div>
+
     <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
     <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">
