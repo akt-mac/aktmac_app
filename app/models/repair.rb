@@ -14,4 +14,9 @@ class Repair < ApplicationRecord
   validates :contacted, presence: true, length: { maximum: 1 }
   validates :delivery, presence: true, length: { maximum: 1 }
   validates :reminder, presence: true, length: { maximum: 1 }
+
+  def self.search(search)
+    return Repair.all unless search
+    Repair.where(['customer_name LIKE ? OR machine_model LIKE ?', "%#{search}%", "%#{search}%"])
+  end
 end
