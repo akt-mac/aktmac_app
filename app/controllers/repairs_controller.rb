@@ -21,6 +21,15 @@ class RepairsController < ApplicationController
         flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;\"#{@search_hash}\""
       end
     end
+
+    # CVS出力
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
+        filename: "修理一覧(#{Date.current.try(:strftime, "%Y年%-m月%d日現在")}).csv", type: :csv
+      end
+    end
   end
 
   def new

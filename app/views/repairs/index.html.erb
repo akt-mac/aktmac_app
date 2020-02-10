@@ -10,6 +10,9 @@
           <div class="input-group-append">
             <%= submit_tag 'OK', name: nil, class: "btn btn-primary" %>
           </div>
+          <div class="csv-btn">
+            <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-primary" if current_user.admin %>
+          </div>
         </div>
       <% end %>
       <% if params[:search].present? %>
