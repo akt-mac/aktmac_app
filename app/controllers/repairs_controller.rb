@@ -29,6 +29,15 @@ class RepairsController < ApplicationController
         send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
         filename: "修理一覧(#{Date.current.try(:strftime, "%Y年%-m月%d日現在")}).csv", type: :csv
       end
+      format.pdf do
+        pdf = RepairPDF.new(@repair)
+
+        # disposition: "inline" によりPDFはダウンロードではなく画面に表示される
+        send_data pdf.render,
+          filename:    "修理一覧.pdf",
+          type:        "application/pdf",
+          disposition: "inline"
+      end
     end
   end
 

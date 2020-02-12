@@ -116,7 +116,13 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.7-x64-mingw32)
       mini_portile2 (~> 2.4.0)
+    pdf-core (0.7.0)
     popper_js (1.16.0)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -193,6 +199,7 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    ttfunk (1.6.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -232,6 +239,8 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.5)
   jquery-rails
+  prawn
+  prawn-table
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.3)
