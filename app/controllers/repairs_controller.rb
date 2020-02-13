@@ -22,7 +22,7 @@ class RepairsController < ApplicationController
       end
     end
 
-    # CVS出力
+    # CVS.PDF出力
     respond_to do |format|
       format.html
       format.csv do
