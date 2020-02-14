@@ -30,7 +30,7 @@ class RepairsController < ApplicationController
         filename: "修理一覧(#{Date.current.try(:strftime, "%Y年%-m月%d日現在")}).csv", type: :csv
       end
       format.pdf do
-        pdf = RepairPDF.new(@repair)
+        pdf = RepairPDF.new(@repairs)
 
         # disposition: "inline" によりPDFはダウンロードではなく画面に表示される
         send_data pdf.render,
