@@ -4,7 +4,7 @@ class RepairPDF < Prawn::Document
 
   def initialize(repair)
     super(page_size: 'A4', page_layout: :landscape)
-    @repairs = repair
+    @repairs_pdf = repair
     font "vendor/fonts/ipaexm.ttf"
     stroke_axis
     header
@@ -34,7 +34,8 @@ class RepairPDF < Prawn::Document
       row(0).border_width = 0.5
       columns(0).align = :right
       columns(1).align = :right
-      columns(2).align = :right
+      columns(2).align = :center
+      columns(3).align = :right
       row(0).align = :center
       # row(-2).border_width = 1.5
       # row(-1).background_color = "cdd3e2"
@@ -42,17 +43,18 @@ class RepairPDF < Prawn::Document
 
       self.header     = true  # 1行目をヘッダーとするか否か
       self.row_colors = ['f5f5f5', 'ffffff'] # 列の色
-      self.column_widths = [25, 25, 35, 90, 40, 40, 40, 120, 120, 125, 50, 50] # 列の幅
+      self.column_widths = [25, 25, 20, 35, 90, 40, 40, 40, 115, 115, 120, 50, 50] # 列の幅
     end
   end
 
   def repair_rows
-    arr = [["受付日", "完了日", "受付番号", "得意先名", "型式", "カテゴリ", "修理者", "症状", "備考", "住所", "電話", "携帯"]]
+    arr = [["受付日", "完了日", "引渡", "受付番号", "得意先名", "型式", "カテゴリ", "修理者", "症状", "備考", "住所", "電話", "携帯"]]
 
     # テーブルのデータ部
-    @repairs.each do |r|
-      arr << [r.reception_day.strftime("%-m/%-d"),
+    @repairs_pdf.each do |r|
+      arr << [r.reception_day.try(:strftime, "%-m/%-d"),
               r.completed.try(:strftime, "%-m/%-d"),
+              sumi_text(r.delivery),
               blank_text(format_reception_number(r.reception_number)),
               r.customer_name,
               r.machine_model,

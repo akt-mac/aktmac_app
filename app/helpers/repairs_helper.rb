@@ -37,4 +37,11 @@ module RepairsHelper
       completed_day.to_date
     end
   end
+
+  # 完了した項目に「済」を表示
+  def sumi_text(complete)
+    if complete == 2
+      "済"
+    end
+  end
 end
