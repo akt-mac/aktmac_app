@@ -4,11 +4,15 @@
   <div class="col-md-12">
     <div class="input-menu">
       <%= link_to "修理登録", new_repair_path, class: "btn btn-primary btn-repair--new" %>
-      <%= form_tag(repairs_path, method: :get) do %>
+      <%= form_with(scope: :search, url: repairs_path, method: :get, local: true) do |f| %>
         <div class="col-md-10 input-group">
-          <%= text_field_tag :search, '', placeholder: '得意先名 or 型式 検索', class: "form-control" %>
+          <%= f.text_field :customer_name, value: @search_params[:customer_name], placeholder: '得意先名', class: "form-control" %>
+          &nbsp;
+          <%= f.date_field :reception_day_from, value: @search_params[:reception_day_from], class: "form-control" %>
+          ～
+          <%= f.date_field :reception_day_to, value: @search_params[:reception_day_to], class: "form-control" %>
           <div class="input-group-append">
-            <%= submit_tag 'OK', name: nil, class: "btn btn-primary" %>
+            <%= f.submit 'OK', name: nil, class: "btn btn-primary" %>
           </div>
           <div class="export-btn">
             <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-primary" if current_user.admin %>
