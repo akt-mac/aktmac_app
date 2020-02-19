@@ -18,8 +18,9 @@ class RepairsController < ApplicationController
     else
       @repairs = Repair.paginate(page: params[:page], per_page: 15).search(@search_params).
                         order(reminder: :DESC, delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
-      if params[:search].present?
-        flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;\"#{@search_hash}\""
+      unless @search_params.blank?
+        # aaa = @search_params[:reception_day_from].to_date
+        flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;#{@search_params[:customer_name]}&emsp;#{@search_params[:reception_day_from]}～#{@search_params[:reception_day_to]}"
       end
     end
 
@@ -174,6 +175,6 @@ class RepairsController < ApplicationController
 
     # 受付日範囲検索
     def reception_day_search_params
-      params.fetch(:search, {}).permit(:customer_name, :machine_model, :reception_day_from, :reception_day_to)
+      params.fetch(:search, {}).permit(:customer_name, :reception_day_from, :reception_day_to)
     end
 end
