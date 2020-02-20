@@ -12,7 +12,7 @@
           ～
           <%= f.date_field :reception_day_to, value: @search_params[:reception_day_to], class: "form-control" %>
           <div class="input-group-append">
-            <%= f.submit 'OK', name: nil, class: "btn btn-primary" %>
+            <%= f.submit '検索', name: nil, class: "btn btn-primary" %>
           </div>
           <div class="export-btn">
             <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-primary" if current_user.admin %>
@@ -23,9 +23,31 @@
         </div>
       <% end %>
       <% if params[:search].present? %>
-      <%= link_to "リセット", repairs_path, class: "btn btn-outline-secondary btn-repair--new" %>
+        <%= link_to "リセット", repairs_path, class: "btn btn-outline-secondary btn-repair--new" %>
       <% end %>
     </div>
+
+
+
+    <%= form_with(scope: :search, url: repairs_path, format: :pdf, :target=>["_blank"], local: true) do |f| %>
+      <div class="col-md-10 input-group">
+        <%= f.text_field :customer_name, value: @search_params[:customer_name], placeholder: '得意先名', class: "form-control" %>
+        &nbsp;
+        <%= f.date_field :reception_day_from, value: @search_params[:reception_day_from], class: "form-control" %>
+        ～
+        <%= f.date_field :reception_day_to, value: @search_params[:reception_day_to], class: "form-control" %>
+        <div class="input-group-append">
+          <%= f.submit '検索', class: "btn btn-primary" %>
+        </div>
+          <%= f.submit "PDF出力", class: "btn btn-primary" if current_user.admin %>
+        </div>
+      </div>
+    <% end %>
+    <% if params[:search].present? %>
+      <%= link_to "リセット", repairs_path, class: "btn btn-outline-secondary btn-repair--new" %>
+    <% end %>
+
+
 
     <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
     <table class="table table-bordered table-condensed table-hover">

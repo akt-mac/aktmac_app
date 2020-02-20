@@ -44,4 +44,11 @@ module RepairsHelper
       "済"
     end
   end
+
+  # 範囲検索結果flashメッセージの"～"の表示
+  def from_to_text(from, to)
+    if from.present? || to.present?
+      "～"
+    end
+  end
 end

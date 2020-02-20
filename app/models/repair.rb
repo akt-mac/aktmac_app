@@ -23,9 +23,9 @@ class Repair < ApplicationRecord
   scope :search, -> (search_params) do
     return if search_params.blank?
 
-    customer_name_like(search_params[:customer_name])
-      .reception_day_from((search_params[:reception_day_from].to_date)&.yesterday) # 空の値で検索するとyesterdayがnilとなりエラーになるので、&.(ぼっち演算子)でnilのエラーを返さないようにする
-      .reception_day_to(search_params[:reception_day_to])
+    customer_name_like(search_params[:customer_name]).
+    reception_day_from((search_params[:reception_day_from].to_date)&.yesterday). # 空の値で検索するとyesterdayがnilとなりエラーになるので、&.(ぼっち演算子)でnilのエラーを返さないようにする
+    reception_day_to(search_params[:reception_day_to])
   end
   scope :customer_name_like, -> (customer_name) { where('customer_name LIKE ?', "%#{customer_name}%") if customer_name.present? }
   scope :reception_day_from, -> (from) { where('? <= reception_day', from) if from.present? }

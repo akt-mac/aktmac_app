@@ -12,15 +12,18 @@ class RepairsController < ApplicationController
     @search_hash = hash[:search]
     @search_params = reception_day_search_params
 
-    if params[:search] == ""
+    if @search_params[:customer_name] == "" && @search_params[:reception_day_from] == "" && @search_params[:reception_day_to] == ""
       redirect_to repairs_url
       flash[:danger] = "検索ワードが入力されていません。"
     else
       @repairs = Repair.paginate(page: params[:page], per_page: 15).search(@search_params).
                         order(reminder: :DESC, delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
       unless @search_params.blank?
-        # aaa = @search_params[:reception_day_from].to_date
-        flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;#{@search_params[:customer_name]}&emsp;#{@search_params[:reception_day_from]}～#{@search_params[:reception_day_to]}"
+        flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;
+                                             #{@search_params[:customer_name]}&emsp;
+                                             #{(@search_params[:reception_day_from].to_date)&.strftime("%Y年%-m月%-d日")}
+                                             #{from_to_text(@search_params[:reception_day_from], @search_params[:reception_day_to])}
+                                             #{(@search_params[:reception_day_to].to_date)&.strftime("%Y年%-m月%-d日")}"
       end
     end
 
@@ -32,7 +35,7 @@ class RepairsController < ApplicationController
         filename: "修理一覧(#{Date.current.try(:strftime, "%Y年%-m月%d日現在")}).csv", type: :csv
       end
       format.pdf do
-        @repairs_pdf = Repair.search(params[:search]).order(reception_day: :DESC)
+        @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)
         pdf = RepairPDF.new(@repairs_pdf)
 
         # disposition: "inline" によりPDFはダウンロードではなく画面に表示される
