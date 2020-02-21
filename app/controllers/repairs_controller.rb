@@ -157,6 +157,11 @@ class RepairsController < ApplicationController
     redirect_to repairs_url
   end
 
+  def export
+    # @repairs = Repair.group("strftime('%Y%m', repairs.reception_day)")
+    @repairs = Repair.all
+  end
+
   private
 
     def repair_params

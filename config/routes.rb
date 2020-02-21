@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
   root 'static_pages#top'
   get '/signup', to: 'users#new'
 
@@ -8,20 +7,18 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  # 進捗チェック
-  get 'repairs/:id/edit_progress', to: 'repairs#edit_progress', as: 'progress'
-  patch 'repairs/:id/update_progress', to: 'repairs#update_progress', as: 'update_progress'
-
-  # 連絡チェック
-  patch 'repairs/:id/update_contacted', to: 'repairs#update_contacted', as: 'update_contacted'
-
-  # 引渡チェック
-  patch 'repairs/:id/update_delivery', to: 'repairs#update_delivery', as: 'update_delivery'
-
-  # 催促チェック
-  patch 'repairs/:id/update_reminder', to: 'repairs#update_reminder', as: 'update_reminder'
-
   resources :users
-  resources :repairs
+  resources :repairs do
+    member do
+      get 'edit_progress' # 進捗チェック
+      patch 'update_progress'
+      patch 'update_contacted' # 連絡チェック
+      patch 'update_delivery' # 引渡チェック
+      patch 'update_reminder' # 催促チェック
+    end
+    collection do
+      get 'export'
+    end
+  end
   resources :machine_categories
 end

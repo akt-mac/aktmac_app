@@ -20,6 +20,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item"><%= link_to "ユーザー一覧", users_path, id: "header-menu" %></li>
+              <li class="dropdown-item"><%= link_to "出力", export_repairs_path, id: "header-menu" %></li>
               <li class="dropdown-item"><%= link_to "ログアウト", logout_path, method: :delete, id: "header-menu"%></li>
             </ul>
           </li>

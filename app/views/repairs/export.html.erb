@@ -1,0 +1,16 @@
+<% provide(:title, "出力") %>
+<div>
+<% @repairs.each do |r| %>
+<%= r.customer_name %>
+<br>
+<%= link_to "#{r.reception_day}", export_repairs_path("#{r.reception_day}") %>
+<% end %>
+</div>
+
+<div>
+<% @repairs.each do |r| %>
+<%= r.customer_name %>
+<br>
+<%= r.reception_day %>
+<% end %>
+</div>

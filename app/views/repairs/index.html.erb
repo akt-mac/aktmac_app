@@ -27,28 +27,6 @@
       <% end %>
     </div>
 
-
-
-    <%= form_with(scope: :search, url: repairs_path, format: :pdf, :target=>["_blank"], local: true) do |f| %>
-      <div class="col-md-10 input-group">
-        <%= f.text_field :customer_name, value: @search_params[:customer_name], placeholder: '得意先名', class: "form-control" %>
-        &nbsp;
-        <%= f.date_field :reception_day_from, value: @search_params[:reception_day_from], class: "form-control" %>
-        ～
-        <%= f.date_field :reception_day_to, value: @search_params[:reception_day_to], class: "form-control" %>
-        <div class="input-group-append">
-          <%= f.submit '検索', class: "btn btn-primary" %>
-        </div>
-          <%= f.submit "PDF出力", class: "btn btn-primary" if current_user.admin %>
-        </div>
-      </div>
-    <% end %>
-    <% if params[:search].present? %>
-      <%= link_to "リセット", repairs_path, class: "btn btn-outline-secondary btn-repair--new" %>
-    <% end %>
-
-
-
     <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
     <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">
@@ -99,30 +77,30 @@
           <td><%= r.machine_model %></td>
           <td>
             <% if r.progress == 1 %>
-              <%= link_to progress_text(r.progress), progress_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.progress), progress_path(r), remote: true, class: "repair_check" %>
+              <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
             <% end %>
           </td>
           <td>
             <% if r.contacted == 1 %>
-              <%= link_to progress_text(r.contacted), update_contacted_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% else %>
-              <%= link_to progress_text(r.contacted), update_contacted_path(r), method: :patch, class: "repair_check" %>
+              <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "repair_check" %>
             <% end %>
           </td>
           <td>
             <% if r.delivery == 1 %>
-              <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+              <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% elsif r.delivery == 2 %>
-              <%= link_to progress_text(r.delivery), update_delivery_path(r), method: :patch, class: "repair_check" %>
+              <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "repair_check" %>
             <% end %>
           </td>
           <td>
             <% if r.delivery == 1 && r.reminder == 1 %>
-              <%= link_to reminder_text(r.reminder), update_reminder_path(r), method: :patch %>
+              <%= link_to reminder_text(r.reminder), update_reminder_repair_path(r), method: :patch %>
             <% elsif r.delivery == 1 && r.reminder == 2 %>
-              <%= link_to reminder_text(r.reminder), update_reminder_path(r), method: :patch, class: "reminder_check" %>
+              <%= link_to reminder_text(r.reminder), update_reminder_repair_path(r), method: :patch, class: "reminder_check" %>
             <% elsif r.delivery == 2 && r.reminder == 1 %>
               <%= reminder_text(r.reminder) %>
             <% end %>

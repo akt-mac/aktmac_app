@@ -16,7 +16,7 @@
               <td><%= @repair.machine_model %></td>
             </tr>
           </table>
-          <%= form_with(model: @repair, url: update_progress_path(@repair), local: true, method: :patch) do |f| %>
+          <%= form_with(model: @repair, url: update_progress_repair_path(@repair), local: true, method: :patch) do |f| %>
             <table class="table table-bordered table-condensed">
               <tr>
                 <td>
