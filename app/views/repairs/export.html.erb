@@ -1,16 +1,13 @@
 <% provide(:title, "出力") %>
-<div>
-<% @repairs.each do |r| %>
-<%= r.customer_name %>
-<br>
-<%= link_to "#{r.reception_day}", export_repairs_path("#{r.reception_day}") %>
-<% end %>
-</div>
 
-<div>
-<% @repairs.each do |r| %>
-<%= r.customer_name %>
-<br>
-<%= r.reception_day %>
+<% @reception_month.each do |r, item| %>
+<%= link_to r, export_repairs_path(format: :pdf), :target=>["_blank"] %>
+<ul>
+    <% item.each do |i| %>
+    <li><%= i.customer_name %></li>
+    <li><%= i.reception_day.try(:strftime, "%Y%m") %></li>
+    <%= link_to r, export_repairs_path(format: :pdf), :target=>["_blank"] %>
+    <% break %>
+    <% end %>
+</ul>
 <% end %>
-</div>

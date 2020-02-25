@@ -15,10 +15,15 @@ class Repair < ApplicationRecord
   validates :delivery, presence: true, length: { maximum: 1 }
   validates :reminder, presence: true, length: { maximum: 1 }
 
-  # def self.search(search)
-  #   return Repair.all unless search
-  #   Repair.where(['customer_name LIKE ? OR machine_model LIKE ?', "%#{search}%", "%#{search}%"])
-  # end
+  scope :reception_day_between, -> from, to {
+    if from.present? && to.present?
+      where(reception_day: from..to)
+    elsif from.present?
+      where('reception_day >= ?', from)
+    elsif to.present?
+      where('reception_day <= ?', to)
+    end
+  }
 
   scope :search, -> (search_params) do
     return if search_params.blank?

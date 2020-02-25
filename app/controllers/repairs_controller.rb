@@ -159,7 +159,21 @@ class RepairsController < ApplicationController
 
   def export
     # @repairs = Repair.group("strftime('%Y%m', repairs.reception_day)")
-    @repairs = Repair.all
+    @reception_month = Repair.all.group_by { |r| r.reception_day.strftime("%Y%m") }
+    respond_to do |format|
+      format.html
+      format.pdf do
+        # @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)
+        @repairs_pdf = @reception_month
+        pdf = RepairPDF.new(@repairs_pdf)
+
+        # disposition: "inline" によりPDFはダウンロードではなく画面に表示される
+        send_data pdf.render,
+          filename:    "修理一覧.pdf",
+          type:        "application/pdf",
+          disposition: "inline"
+      end
+    end
   end
 
   private
