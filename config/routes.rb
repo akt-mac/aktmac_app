@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'export'
+      get 'export_pdf'
     end
   end
   resources :machine_categories

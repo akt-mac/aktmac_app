@@ -2,9 +2,10 @@ class RepairPDF < Prawn::Document
   include ApplicationHelper
   include RepairsHelper
 
-  def initialize(repair)
+  def initialize(repair, id)
     super(page_size: 'A4', page_layout: :landscape)
     @repairs_pdf = repair
+    @params_id = id
     font "vendor/fonts/ipaexm.ttf"
     stroke_axis
     header
@@ -51,20 +52,24 @@ class RepairPDF < Prawn::Document
     arr = [["受付日", "完了日", "引渡", "受付番号", "得意先名", "型式", "カテゴリ", "修理者", "症状", "備考", "住所", "電話", "携帯"]]
 
     # テーブルのデータ部
-    @repairs_pdf.each do |r|
-      arr << [r.reception_day.try(:strftime, "%-m/%-d"),
-              r.completed.try(:strftime, "%-m/%-d"),
-              sumi_text(r.delivery),
-              blank_text(format_reception_number(r.reception_number)),
-              r.customer_name,
-              r.machine_model,
-              r.category,
-              r.repair_staff,
-              r.condition,
-              r.note,
-              r.address,
-              r.phone_number,
-              r.mobile_phone_number]
+    @repairs_pdf.each do |r, item|
+      item.each do |i|
+        if i.reception_day.try(:strftime, "%Y%m")
+      arr << [i.reception_day.try(:strftime, "%-m/%-d"),
+              i.completed.try(:strftime, "%-m/%-d"),
+              sumi_text(i.delivery),
+              blank_text(format_reception_number(i.reception_number)),
+              i.customer_name,
+              i.machine_model,
+              i.category,
+              i.repair_staff,
+              i.condition,
+              i.note,
+              i.address,
+              i.phone_number,
+              i.mobile_phone_number]
+            end
+      end
     end
     return arr
   end

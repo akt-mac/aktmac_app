@@ -1,12 +1,30 @@
 <% provide(:title, "出力") %>
 
-<% @reception_month.each do |r, item| %>
-<%= link_to r, export_repairs_path(format: :pdf), :target=>["_blank"] %>
+<% @reception_month.each do |rm, item| %>
+<%= link_to rm, export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"] %>
 <ul>
     <% item.each do |i| %>
     <li><%= i.customer_name %></li>
     <li><%= i.reception_day.try(:strftime, "%Y%m") %></li>
-    <%= link_to r, export_repairs_path(format: :pdf), :target=>["_blank"] %>
+    <%= link_to rm, export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"] %>
+    <%= "id#{@id}" %>
+    <% break %>
+    <% end %>
+</ul>
+<% end %>
+
+<div>
+  ---------------------------------
+</div>
+
+<% @reception_month.each do |rg, item| %>
+<%= link_to rg, export_pdf_repairs_path(date: rg) %>
+<%= "id#{@id}" %>
+<ul>
+    <% item.each do |i| %>
+    <li><%= i.customer_name %></li>
+    <li><%= i.reception_day.try(:strftime, "%Y%m") %></li>
+    <%= link_to rg, export_pdf_repairs_path(date: rg) %>
     <% break %>
     <% end %>
 </ul>
