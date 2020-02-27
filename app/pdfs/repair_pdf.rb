@@ -2,10 +2,10 @@ class RepairPDF < Prawn::Document
   include ApplicationHelper
   include RepairsHelper
 
-  def initialize(repair, id)
+  def initialize(repair, date)
     super(page_size: 'A4', page_layout: :landscape)
     @repairs_pdf = repair
-    @params_id = id
+    @date = date
     font "vendor/fonts/ipaexm.ttf"
     stroke_axis
     header
@@ -54,21 +54,21 @@ class RepairPDF < Prawn::Document
     # テーブルのデータ部
     @repairs_pdf.each do |r, item|
       item.each do |i|
-        if i.reception_day.try(:strftime, "%Y%m")
-      arr << [i.reception_day.try(:strftime, "%-m/%-d"),
-              i.completed.try(:strftime, "%-m/%-d"),
-              sumi_text(i.delivery),
-              blank_text(format_reception_number(i.reception_number)),
-              i.customer_name,
-              i.machine_model,
-              i.category,
-              i.repair_staff,
-              i.condition,
-              i.note,
-              i.address,
-              i.phone_number,
-              i.mobile_phone_number]
-            end
+        if i.reception_day.try(:strftime, "%Y%m") == @date
+          arr << [i.reception_day.try(:strftime, "%-m/%-d"),
+                  i.completed.try(:strftime, "%-m/%-d"),
+                  sumi_text(i.delivery),
+                  blank_text(format_reception_number(i.reception_number)),
+                  i.customer_name,
+                  i.machine_model,
+                  i.category,
+                  i.repair_staff,
+                  i.condition,
+                  i.note,
+                  i.address,
+                  i.phone_number,
+                  i.mobile_phone_number]
+        end
       end
     end
     return arr

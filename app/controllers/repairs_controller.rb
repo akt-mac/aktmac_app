@@ -159,13 +159,13 @@ class RepairsController < ApplicationController
 
   def export
     # @repairs = Repair.group("strftime('%Y%m', repairs.reception_day)")
-    @pamams_id = params.permit[:date]
+    @pamams_date = params[:date]
     @reception_month = Repair.all.group_by { |rm| rm.reception_day.strftime("%Y%m") }
     respond_to do |format|
       format.html
       format.pdf do
         # @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)
-        @id = @params_id
+        @date = @params_date
         @repairs_pdf = @reception_month
         pdf = RepairPDF.new(@repairs_pdf)
 
@@ -179,15 +179,15 @@ class RepairsController < ApplicationController
   end
 
   def export_pdf
-    @id = params[:date]
+    @params_date = params[:date]
     @reception_month = Repair.all.group_by { |rm| rm.reception_day.strftime("%Y%m") }
     respond_to do |format|
       format.html
       format.pdf do
         # @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)
-        @pamams_id = @id
+        @date = @params_date
         @repairs_pdf = @reception_month
-        pdf = RepairPDF.new(@repairs_pdf, @params_id)
+        pdf = RepairPDF.new(@repairs_pdf, @date)
 
         # disposition: "inline" によりPDFはダウンロードではなく画面に表示される
         send_data pdf.render,
