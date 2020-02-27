@@ -54,7 +54,7 @@ class RepairPDF < Prawn::Document
     # テーブルのデータ部
     @repairs_pdf.each do |r, item|
       item.each do |i|
-        if i.reception_day.try(:strftime, "%Y%m") == @date
+        if i.reception_day&.strftime("%Y%m") == @date
           arr << [i.reception_day.try(:strftime, "%-m/%-d"),
                   i.completed.try(:strftime, "%-m/%-d"),
                   sumi_text(i.delivery),

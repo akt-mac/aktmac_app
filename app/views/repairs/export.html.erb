@@ -1,31 +1,10 @@
 <% provide(:title, "出力") %>
-
+<h1>データ出力</h1>
 <% @reception_month.each do |rm, item| %>
-<%= link_to rm, export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"] %>
-<ul>
-    <% item.each do |i| %>
-    <li><%= i.customer_name %></li>
-    <li><%= i.reception_day.try(:strftime, "%Y%m") %></li>
-    <%= link_to rm, export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"] %>
-    <%= "id#{@id}" %>
-    <% break %>
-    <% end %>
-</ul>
-<% end %>
-
-<div>
-  ---------------------------------
+<div class="monthly_list">
+  <%= (rm + "01").to_date&.strftime("%Y年 %-m月") %>
+  <%= link_to "PDF",
+              export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"],
+              class: "btn btn-sm rounded-pill btn-outline-danger monthly_list" %>
 </div>
-
-<% @reception_month.each do |rg, item| %>
-<%= link_to rg, export_pdf_repairs_path(date: rg) %>
-<%= "id#{@id}" %>
-<ul>
-    <% item.each do |i| %>
-    <li><%= i.customer_name %></li>
-    <li><%= i.reception_day.try(:strftime, "%Y%m") %></li>
-    <%= link_to rg, export_pdf_repairs_path(date: rg) %>
-    <% break %>
-    <% end %>
-</ul>
 <% end %>
