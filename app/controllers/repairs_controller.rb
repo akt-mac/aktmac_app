@@ -159,6 +159,7 @@ class RepairsController < ApplicationController
 
   def export
     # @repairs = Repair.group("strftime('%Y%m', repairs.reception_day)")
+    @reception_year = Repair.all.order(reception_day: :DESC).group_by { |rm| rm.reception_day.strftime("%Y") }
     @reception_month = Repair.all.order(reception_day: :DESC).group_by { |rm| rm.reception_day.strftime("%Y%m") }
   end
 

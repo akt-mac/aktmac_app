@@ -51,4 +51,23 @@ module RepairsHelper
       "～"
     end
   end
+
+  # pdf出力ボタン文字均等割付(文字数2の場合は両端に半角スペース挿入)
+  def pdf_link_text(text)
+    if text.length == 2
+      "&nbsp;#{text}&nbsp;".html_safe
+    else
+      text
+    end
+  end
+
+  # 年の表示
+  def year_text(text, format)
+    (text + "0101").to_date&.strftime(format)
+  end
+
+  # 月の表示
+  def month_text(text, format)
+    (text + "01").to_date&.strftime(format)
+  end
 end

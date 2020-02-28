@@ -257,10 +257,18 @@ input[type="radio"] {
 
 /* PDF出力ページ */
 
-.monthly_list {
-  font-size: 1em;
+.monthly_group {
+  font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.monthly_list {
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 /* エラーメッセージ */
