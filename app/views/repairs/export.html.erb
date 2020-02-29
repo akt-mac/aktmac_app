@@ -1,6 +1,6 @@
 <% provide(:title, "出力") %>
 <h1>データ出力</h1>
-<div>
+<div class="col-md-12">
   <% @reception_year.each do |ry, item| %>
   <div class="monthly_group"><%= year_text(ry, "%Y年") %></div>
   <div class="monthly_list">
@@ -11,22 +11,7 @@
                     class: "btn btn-sm rounded-pill btn-outline-danger monthly_list" %>
       <% end %>
     <% end %>
+    <%= link_to "1月～12月", export_pdf_repairs_path(date: ry, format: :pdf), :target=>["_blank"], class: "btn btn-sm rounded-pill btn-outline-secondary monthly_list" %>
   </div>
   <% end %>
-</div>
-
-
-
-<br>
-<br>
-<br>
-<br>
-<div>
-<% @reception_month.each do |rm, item| %>
-<div class="">
-  <%= link_to (rm + "01").to_date&.strftime("%Y年 %-m月"),
-              export_pdf_repairs_path(date: rm, format: :pdf), :target=>["_blank"],
-              class: "btn btn-sm rounded-pill btn-outline-danger monthly_list" %>
-</div>
-<% end %>
 </div>

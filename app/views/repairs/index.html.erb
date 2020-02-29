@@ -111,7 +111,7 @@
           <% if current_user.admin? && !current_user?(@user) %>
             <td>
               <%= link_to "削除", r, method: :delete, data: { confirm: "#{r.customer_name}のデータを削除します。",
-                  cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
+                  cancel: "キャンセル", commit: "削除"}, title: "削除の確認", class: "btn btn-sm btn-danger"%>
             </td>
           <% end %>
         </tr>

@@ -2,9 +2,10 @@ class RepairPDF < Prawn::Document
   include ApplicationHelper
   include RepairsHelper
 
-  def initialize(repair, date)
+  def initialize(year, month, date)
     super(page_size: 'A4', page_layout: :landscape)
-    @repairs_pdf = repair
+    @year_pdf = year
+    @month_pdf = month
     @date = date
     font "vendor/fonts/ipaexm.ttf"
     stroke_axis
@@ -18,8 +19,8 @@ class RepairPDF < Prawn::Document
     # bounding_boxで記載箇所を指定して、textメソッドでテキストを記載
     bounding_box([0, 500, y_position], width: 270, height: 20) do
       font_size 10.5
-      draw_text "修理一覧", size: 25, at: [0, 20]
-      draw_text "印刷日:  #{Date.current.strftime("%Y年%-m月%d日")}", at: [620, 20]
+      draw_text "修理一覧(#{@date.slice(0..3)}年)", size: 25, at: [0, 20]
+      draw_text "出力日:  #{Date.current.strftime("%Y年%-m月%d日")}", at: [620, 20]
     end
   end
 
@@ -52,7 +53,29 @@ class RepairPDF < Prawn::Document
     arr = [["受付日", "完了日", "引渡", "受付番号", "得意先名", "型式", "カテゴリ", "修理者", "症状", "備考", "住所", "電話", "携帯"]]
 
     # テーブルのデータ部
-    @repairs_pdf.each do |r, item|
+    # 1年分の出力
+    @year_pdf.each do |yp, item|
+      item.each do |i|
+        if i.reception_day&.strftime("%Y") == @date
+          arr << [i.reception_day.try(:strftime, "%-m/%-d"),
+                  i.completed.try(:strftime, "%-m/%-d"),
+                  sumi_text(i.delivery),
+                  blank_text(format_reception_number(i.reception_number)),
+                  i.customer_name,
+                  i.machine_model,
+                  i.category,
+                  i.repair_staff,
+                  i.condition,
+                  i.note,
+                  i.address,
+                  i.phone_number,
+                  i.mobile_phone_number]
+        end
+      end
+    end
+
+    # 1ヶ月分の出力
+    @month_pdf.each do |mp, item|
       item.each do |i|
         if i.reception_day&.strftime("%Y%m") == @date
           arr << [i.reception_day.try(:strftime, "%-m/%-d"),
