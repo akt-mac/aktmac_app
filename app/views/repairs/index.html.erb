@@ -17,9 +17,6 @@
           <div class="export-btn">
             <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-primary" if current_user.admin %>
           </div>
-          <div class="export-btn">
-            <%= link_to "PDF出力", repairs_path(format: :pdf), :target=>["_blank"], class: "btn btn-primary" if current_user.admin %>
-          </div>
         </div>
       <% end %>
       <% if params[:search].present? %>
@@ -57,7 +54,7 @@
             <tr>
           <% end %>
           <td>
-            <%= r.reception_day.strftime("%-m/%d") %>
+            <%= r.reception_day.strftime("%-m/%-d") %>
             (<%= $days_of_the_week[r.reception_day.wday] %>)
           </td>
           <td><%= blank_text(format_reception_number(r.reception_number)) %></td>

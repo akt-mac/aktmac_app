@@ -6,7 +6,7 @@ CSV.generate do |csv|
                         phone_number mobile_phone_number machine_model category
                         condition note progress contacted delivery reminder repair_staff completed)
   csv << csv_column_names
-  @repairs.each do |r|
+  @repairs_all.each do |r|
     csv_column_values = [
       r.reception_number,
       r.reception_day,

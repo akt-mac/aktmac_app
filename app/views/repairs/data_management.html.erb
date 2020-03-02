@@ -1,0 +1,14 @@
+<% provide(:title, "データ管理") %>
+<h1>データ管理</h1>
+<div class="data-group">
+  <div class="data_list">
+    <div class="data_menu">
+      <h5 class="">ユーザーデータ</h5>
+      <%= link_to "CSV出力", '#', class: "btn btn-sm rounded-pill btn-primary"%>
+    </div>
+    <div class="data_menu">
+      <h5 class="">修理データ</h5>
+      <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-sm rounded-pill btn-primary"%>
+    </div>
+  </div>
+</div>

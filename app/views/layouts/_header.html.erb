@@ -5,6 +5,7 @@
       <ul>
         <% if logged_in? %>
           <li><%= link_to "修理一覧", repairs_path, id: "header-menu" %></li>
+          <li class="dropdown"><%= link_to "PDF出力", export_repairs_path, id: "header-menu" %></li>
           <li class="dropdown">
             <a class="dropdown-toggle" href="#" id="header-menu" role="button" data-toggle="dropdown">
                 基本情報登録
@@ -20,7 +21,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item"><%= link_to "ユーザー一覧", users_path, id: "header-menu" %></li>
-              <li class="dropdown-item"><%= link_to "出力", export_repairs_path, id: "header-menu" %></li>
+              <li class="dropdown-item"><%= link_to "データ管理", data_management_repairs_path, id: "header-menu" if current_user.admin? %></li>
               <li class="dropdown-item"><%= link_to "ログアウト", logout_path, method: :delete, id: "header-menu"%></li>
             </ul>
           </li>

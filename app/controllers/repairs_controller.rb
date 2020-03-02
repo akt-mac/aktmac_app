@@ -8,15 +8,16 @@ class RepairsController < ApplicationController
 
   def index
     # 検索フォームの入力値を取り出す
-    hash = ActiveSupport::HashWithIndifferentAccess.new(search: params[:search])
-    @search_hash = hash[:search]
+    # hash = ActiveSupport::HashWithIndifferentAccess.new(search: params[:search])
+    # @search_hash = hash[:search]
     @search_params = reception_day_search_params
 
     if @search_params[:customer_name] == "" && @search_params[:reception_day_from] == "" && @search_params[:reception_day_to] == ""
       redirect_to repairs_url
       flash[:danger] = "検索ワードが入力されていません。"
     else
-      @repairs = Repair.paginate(page: params[:page], per_page: 15).search(@search_params).
+      @repairs_all = Repair.all
+      @repairs = Repair.paginate(page: params[:page], per_page: 20).search(@search_params).
                         order(reminder: :DESC, delivery: :ASC, contacted: :ASC, progress: :ASC, reception_day: :DESC, created_at: :DESC)
       unless @search_params.blank?
         flash.now[:success] = "検索結果:&nbsp;#{@repairs.count}件&emsp;
@@ -182,6 +183,9 @@ class RepairsController < ApplicationController
           disposition: "inline"
       end
     end
+  end
+
+  def data_management
   end
 
   private
