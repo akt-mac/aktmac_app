@@ -188,6 +188,22 @@ class RepairsController < ApplicationController
   def data_management
   end
 
+  def import
+    if params[:repairs_file].blank?
+      flash[:danger] = "インポートするCSVファイルを選択してください。"
+      redirect_to data_management_repairs_url
+    else
+      num = Repair.import(params[:repairs_file])
+      flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
+      redirect_to repairs_url
+    end
+  end
+
+  # def import
+  #   Repair.import(params[:repairs_file])
+  #   redirect_to repairs_url
+  # end
+
   private
 
     def repair_params

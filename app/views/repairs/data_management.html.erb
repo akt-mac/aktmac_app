@@ -1,14 +1,57 @@
 <% provide(:title, "データ管理") %>
 <h1>データ管理</h1>
 <div class="data-group">
-  <div class="data_list">
-    <div class="data_menu">
-      <h5 class="">ユーザーデータ</h5>
-      <%= link_to "CSV出力", '#', class: "btn btn-sm rounded-pill btn-primary"%>
+  <div class="export_list">
+    <div class="export_menu">
+      <h5 class="center">ユーザー❌</h5>
+      <div class="center">
+        <%= link_to "&nbsp;&nbsp;&nbsp;&nbsp;CSV出力&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, '#', class: "btn btn-lg rounded-pill btn-primary"%>
+      </div>
     </div>
-    <div class="data_menu">
-      <h5 class="">修理データ</h5>
-      <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-sm rounded-pill btn-primary"%>
+    <div class="export_menu">
+      <h5 class="center">修理</h5>
+      <div class="center">
+        <%= link_to "&nbsp;&nbsp;&nbsp;&nbsp;CSV出力&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, repairs_path(format: :csv), class: "btn btn-lg rounded-pill btn-primary"%>
+      </div>
+    </div>
+    <div class="export_menu">
+      <h5 class="center">製品カテゴリ❌</h5>
+      <div class="center">
+        <%= link_to "&nbsp;&nbsp;&nbsp;&nbsp;CSV出力&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, '#', class: "btn btn-lg rounded-pill btn-primary"%>
+      </div>
+    </div>
+  </div>
+
+  <div class="inport_list">
+    <div class="inport_menu">
+      <h5 class="center">ユーザー❌</h5>
+      <div class="center">
+        <%= form_with url: '#', local: true do |f| %>
+          <%= f.label :file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-danger" %>
+          <%= f.file_field :file, class: "csv_inport_form" %>
+          <div><%= f.submit "&nbsp;&nbsp;&nbsp;&nbsp;CSV読込&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, class: "btn btn-lg rounded-pill btn-danger" %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="inport_menu">
+      <h5 class="center">修理❌</h5>
+      <div class="center">
+        <%= form_with url: import_repairs_path, local: true do |f| %>
+          <%= f.label :repairs_file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-danger" %>
+          <%= f.file_field :repairs_file, class: "csv_inport_form" %>
+          <div><%= f.submit "&nbsp;&nbsp;&nbsp;&nbsp;CSV読込&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, class: "btn btn-lg rounded-pill btn-danger" %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="inport_menu">
+      <h5 class="center">製品カテゴリ❌</h5>
+      <div class="center">
+        <%= form_with url: '#', local: true do |f| %>
+          <%= f.label :file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-danger" %>
+          <%= f.file_field :file, class: "csv_inport_form" %>
+          <div><%= f.submit "&nbsp;&nbsp;&nbsp;&nbsp;CSV読込&nbsp;&nbsp;&nbsp;&nbsp;".html_safe, class: "btn btn-lg rounded-pill btn-danger" %></div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

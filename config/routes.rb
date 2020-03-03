@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'export'
       get 'export_pdf'
       get 'data_management'
+      post 'import'
     end
   end
   resources :machine_categories

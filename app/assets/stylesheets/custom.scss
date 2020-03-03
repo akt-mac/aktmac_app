@@ -276,12 +276,29 @@ input[type="radio"] {
 .data-group {
 }
 
-.data_list {
+.export_list {
+  margin-bottom: 50px;
 }
 
-.data_menu {
+.inport_list {
+}
+
+.export_menu {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 50px;
+}
+
+.inport_menu {
+  display: inline-block;
+  margin-right: 50px;
+}
+
+.csv_inport_btn{
+
+}
+
+.csv_inport_form{
+  display: none;
 }
 
 /* エラーメッセージ */
