@@ -209,7 +209,8 @@ class RepairsController < ApplicationController
     def repair_params
       params.require(:repair).permit(:reception_day,
                                      :customer_name,
-                                     :address,:phone_number,
+                                     :address,
+                                     :phone_number,
                                      :mobile_phone_number,
                                      :machine_model,
                                      :condition,

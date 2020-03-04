@@ -45,7 +45,7 @@ class Repair < ApplicationRecord
         next if row.header_row?
         table = Hash[[row.headers, row.fields].transpose]
 
-        repair = find_by(reception_number: table["reception_number"])
+        repair = find_by(id: table["id"])
         if repair.nil?
           repair = new
         end

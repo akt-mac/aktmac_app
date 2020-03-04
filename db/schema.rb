@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_082631) do
+ActiveRecord::Schema.define(version: 2020_03_04_014114) do
 
   create_table "machine_categories", force: :cascade do |t|
     t.integer "code"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2020_03_03_082631) do
     t.integer "contacted", default: 1
     t.integer "delivery", default: 1
     t.integer "reminder", default: 1
-    t.index ["reception_number"], name: "index_repairs_on_reception_number", unique: true
   end
 
   create_table "users", force: :cascade do |t|
