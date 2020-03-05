@@ -14,9 +14,6 @@
           <div class="input-group-append">
             <%= f.submit '検索', name: nil, class: "btn btn-primary" %>
           </div>
-          <div class="export-btn">
-            <%= link_to "CSV出力", repairs_path(format: :csv), class: "btn btn-primary" if current_user.admin %>
-          </div>
         </div>
       <% end %>
       <% if params[:search].present? %>

@@ -40,11 +40,11 @@ puts "Sample machine_category creation completed!"
   phone_number = "018" + rand(800..899).to_s + rand(1000..9999).to_s
   mobile_phone_number = ["070", "080", "090"].sample + rand(1000..9999).to_s + rand(1000..9999).to_s
   machine_model = Faker::Types.character.upcase + Faker::Types.character.upcase + Faker::Number.between(from: 330, to: 580).to_s
-  condition = "症状#{n+1}。テスト、" +　Faker::Lorem.sentence
+  condition = "症状#{n+1}。テスト、" + Faker::Lorem.sentence
   category = ["チェンソー", "刈払機", "モア", "薪割機", "除雪機", "その他"].sample
   progress = 1
   repair_staff = Faker::Name.name
-  note = "備考#{n+1}。テスト、" +　Faker::Lorem.sentence
+  note = "備考#{n+1}。テスト、" + Faker::Lorem.sentence
   reception_number = n + 100
   contacted = 1
   delivery = 1
@@ -63,7 +63,7 @@ puts "Sample machine_category creation completed!"
                  reception_number: reception_number,
                  contacted: contacted,
                  delivery: delivery,
-                 remember: remember)
+                 reminder: reminder)
 end
 
 puts "Sample repair creation completed!"

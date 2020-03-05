@@ -28,9 +28,9 @@
                 <span class="badge badge-pill badge-info">自分</span>
               <% end %>
               <% if user.created_at.since(1.day) > Time.now %>
-              <span class="badge badge-pill badge-info badge-new">
-                <%= new_arrivals(user.created_at) %>
-              </span>
+                <span class="badge badge-pill badge-info badge-new">
+                  <%= "new" %>
+                </span>
               <% end %>
             </td>
             <td><%= user.email %></td>
