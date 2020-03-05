@@ -60,34 +60,4 @@ class Repair < ApplicationRecord
     end
     imported_num
   end
-
-  # def self.import(file)
-  #   CSV.each(file.path, headers: true) do |row|
-  #     # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
-  #     repair = find_by(id: row["id"]) || new
-  #     # CSVからデータを取得し、設定する
-  #     repair.attributes = row.to_hash.slice(*updatable_attributes)
-  #     repair.save
-  #   end
-  # end
-  #
-  # # 更新を許可するカラムを定義
-  # def self.updatable_attributes
-  #   ["reception_number",
-  #    "reception_day",
-  #    "customer_name",
-  #    "address",
-  #    "phone_number",
-  #    "mobile_phone_number",
-  #    "machine_model",
-  #    "category",
-  #    "condition",
-  #    "note",
-  #    "progress",
-  #    "contacted",
-  #    "delivery",
-  #    "reminder",
-  #    "repair_staff",
-  #    "completed"]
-  # end
 end

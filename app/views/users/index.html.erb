@@ -32,6 +32,11 @@
                   <%= "new" %>
                 </span>
               <% end %>
+              <% if user.updated_at.since(3.second) > Time.now %>
+                <span class="badge badge-pill badge-info badge-update">
+                  update
+                </span>
+              <% end %>
             </td>
             <td><%= user.email %></td>
             <% if current_user.admin? %>

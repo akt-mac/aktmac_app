@@ -57,8 +57,8 @@ class RepairPDF < Prawn::Document
     @year_pdf.each do |yp, item|
       item.each do |i|
         if i.reception_day&.strftime("%Y") == @date
-          arr << [i.reception_day.try(:strftime, "%-m/%-d"),
-                  i.completed.try(:strftime, "%-m/%-d"),
+          arr << [i.reception_day&.strftime("%-m/%-d"),
+                  i.completed&.strftime("%-m/%-d"),
                   sumi_text(i.delivery),
                   blank_text(format_reception_number(i.reception_number)),
                   i.customer_name,
@@ -78,8 +78,8 @@ class RepairPDF < Prawn::Document
     @month_pdf.each do |mp, item|
       item.each do |i|
         if i.reception_day&.strftime("%Y%m") == @date
-          arr << [i.reception_day.try(:strftime, "%-m/%-d"),
-                  i.completed.try(:strftime, "%-m/%-d"),
+          arr << [i.reception_day&.strftime("%-m/%-d"),
+                  i.completed&.strftime("%-m/%-d"),
                   sumi_text(i.delivery),
                   blank_text(format_reception_number(i.reception_number)),
                   i.customer_name,

@@ -28,12 +28,12 @@ class RepairsController < ApplicationController
       end
     end
 
-    # CVS.PDF出力
+    # CSV.PDF出力
     respond_to do |format|
       format.html
       format.csv do
         send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
-        filename: "修理一覧(#{Date.current.try(:strftime, "%Y年%-m月%d日現在")}).csv", type: :csv
+        filename: "修理一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
       end
       format.pdf do
         @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)
@@ -198,11 +198,6 @@ class RepairsController < ApplicationController
       redirect_to repairs_url
     end
   end
-
-  # def import
-  #   Repair.import(params[:repairs_file])
-  #   redirect_to repairs_url
-  # end
 
   private
 
