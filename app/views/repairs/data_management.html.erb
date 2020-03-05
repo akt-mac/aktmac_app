@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="inport_menu">
-      <h5 class="center">修理❌</h5>
+      <h5 class="center">修理</h5>
       <div class="center">
         <%= form_with url: import_repairs_path, local: true do |f| %>
           <%= f.label :repairs_file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-danger" %>
@@ -55,3 +55,7 @@
     </div>
   </div>
 </div>
+
+<% 10.times do |n| %>
+<%= n + 100 %>
+<% end %>
