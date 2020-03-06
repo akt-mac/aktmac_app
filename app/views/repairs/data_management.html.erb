@@ -2,23 +2,26 @@
 <% provide(:btn_export, "CSV出力") %>
 <% provide(:btn_import, "CSV読込") %>
 <h1>データ管理</h1>
-<div class="data-group">
+<div class="data-group center">
   <div class="export_list">
     <div class="export_menu">
-      <h5 class="center">ユーザー</h5>
-      <div class="center">
+      <h5 class="data_title">ユーザー</h5>
+      <h6>export</h6>
+      <div>
         <%= link_to text_space(yield(:btn_export)), users_path(format: :csv), class: "btn btn-lg rounded-pill btn-primary"%>
       </div>
     </div>
     <div class="export_menu">
-      <h5 class="center">製品カテゴリ❌</h5>
-      <div class="center">
-        <%= link_to text_space(yield(:btn_export)), '#', class: "btn btn-lg rounded-pill btn-success"%>
+      <h5 class="data_title">製品カテゴリ</h5>
+      <h6>export</h6>
+      <div>
+        <%= link_to text_space(yield(:btn_export)), machine_categories_path(format: :csv), class: "btn btn-lg rounded-pill btn-success"%>
       </div>
     </div>
     <div class="export_menu">
-      <h5 class="center">修理</h5>
-      <div class="center">
+      <h5 class="data_title">修理</h5>
+      <h6>export</h6>
+      <div>
         <%= link_to text_space(yield(:btn_export)), repairs_path(format: :csv), class: "btn btn-lg rounded-pill btn-danger"%>
       </div>
     </div>
@@ -26,8 +29,8 @@
 
   <div class="inport_list">
     <div class="inport_menu">
-      <h5 class="center">ユーザー</h5>
-      <div class="center">
+      <h6>import</h6> <!-- ユーザー -->
+      <div>
         <%= form_with url: import_users_path, local: true do |f| %>
           <%= f.label :users_file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-primary" %>
           <%= f.file_field :users_file, class: "csv_inport_form" %>
@@ -36,18 +39,18 @@
       </div>
     </div>
     <div class="inport_menu">
-      <h5 class="center">製品カテゴリ❌</h5>
-      <div class="center">
-        <%= form_with url: '#', local: true do |f| %>
-          <%= f.label :file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-success" %>
-          <%= f.file_field :file, class: "csv_inport_form" %>
+      <h6>import</h6> <!-- 製品カテゴリ -->
+      <div>
+        <%= form_with url: import_machine_categories_path, local: true do |f| %>
+          <%= f.label :machine_categories_file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-success" %>
+          <%= f.file_field :machine_categories_file, class: "csv_inport_form" %>
           <div><%= f.submit text_space(yield(:btn_import)), class: "btn btn-lg rounded-pill btn-success" %></div>
         <% end %>
       </div>
     </div>
     <div class="inport_menu">
-      <h5 class="center">修理</h5>
-      <div class="center">
+      <h6>import</h6> <!-- 修理 -->
+      <div>
         <%= form_with url: import_repairs_path, local: true do |f| %>
           <%= f.label :repairs_file, "ファイル選択", class: "btn btn-lg rounded-pill btn-outline-danger" %>
           <%= f.file_field :repairs_file, class: "csv_inport_form" %>

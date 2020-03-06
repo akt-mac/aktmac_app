@@ -27,5 +27,9 @@ Rails.application.routes.draw do
       post 'import'
     end
   end
-  resources :machine_categories
+  resources :machine_categories do
+    collection do
+      post 'import'
+    end
+  end
 end

@@ -15,14 +15,26 @@
         </tr>
       </thead>
       <tbody>
-        <% @machine_categories.each do |machine_category| %>
+        <% @machine_categories.each do |m| %>
           <tr>
-            <td><%= link_to "編集", edit_machine_category_path(machine_category), remote: true, class: "btn btn-sm btn-success" %></td>
-            <td><%= format('%04d', machine_category.code) %></td>
-            <td><%= machine_category.product %></td>
+            <td><%= link_to "編集", edit_machine_category_path(m), remote: true, class: "btn btn-sm btn-success" %></td>
+            <td><%= format('%04d', m.code) %></td>
+            <td>
+              <%= m.product %>
+              <% if m.created_at.since(1.day) > Time.now %>
+                <span class="badge badge-pill badge-info badge-new">
+                  new
+                </span>
+              <% end %>
+              <% if m.updated_at.since(3.second) > Time.now %>
+                <span class="badge badge-pill badge-info badge-update">
+                  update
+                </span>
+              <% end %>
+            </td>
             <% if current_user.admin? %>
               <td>
-                <%= link_to "削除", machine_category, method: :delete, data: { confirm: "「#{machine_category.product}」を削除します。",
+                <%= link_to "削除", m, method: :delete, data: { confirm: "「#{m.product}」を削除します。",
                     cancel: "やめる", commit: "削除する"}, title: "削除の確認", class: "btn btn-sm btn-danger" %>
               </td>
             <% end %>

@@ -3,7 +3,17 @@ class MachineCategoriesController < ApplicationController
   before_action :logged_in_user, only: %i(index new create edit update destroy)
 
   def index
+    @machine_categories_all = MachineCategory.all
     @machine_categories = MachineCategory.all.order(code: :ASC)
+
+    # CSVF出力
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
+        filename: "製品カテゴリ一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+      end
+    end
   end
 
   def new
@@ -38,6 +48,17 @@ class MachineCategoriesController < ApplicationController
     @machine_category.destroy
     flash[:danger] = "「#{@machine_category.product}」を削除しました。"
     redirect_to machine_categories_url
+  end
+
+  def import
+    if params[:machine_categories_file].blank?
+      flash[:danger] = "インポートするCSVファイルを選択してください。"
+      redirect_to data_management_repairs_url
+    else
+      num = MachineCategory.import(params[:machine_categories_file])
+      flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
+      redirect_to machine_categories_url
+    end
   end
 
   private
