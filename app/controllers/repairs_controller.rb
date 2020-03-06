@@ -1,8 +1,8 @@
 class RepairsController < ApplicationController
   before_action :set_repair, only: %i(show edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
   before_action :all_machine_category, only: %i(new create edit update)
-  before_action :logged_in_user, only: %i(index new create show edit update destroy
-                                          edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
+  before_action :admin_user, only: %i(export export_pdf data_management destroy import)
+  before_action :logged_in_user
 
   UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 
@@ -32,8 +32,12 @@ class RepairsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
-        filename: "修理一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        if current_user.admin? # 管理者のみCVS出力可
+          send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
+          filename: "修理一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        else
+          redirect_to repairs_url
+        end
       end
       format.pdf do
         @repairs_pdf = Repair.search(@search_params).order(reception_day: :ASC)

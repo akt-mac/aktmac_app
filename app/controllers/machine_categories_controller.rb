@@ -1,6 +1,7 @@
 class MachineCategoriesController < ApplicationController
   before_action :set_machine_category, only: %i(edit update destroy)
-  before_action :logged_in_user, only: %i(index new create edit update destroy)
+  before_action :logged_in_user
+  before_action :admin_user
 
   def index
     @machine_categories_all = MachineCategory.all
@@ -10,8 +11,12 @@ class MachineCategoriesController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
-        filename: "製品カテゴリ一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        if current_user.admin?
+          send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
+          filename: "製品カテゴリ一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        else
+          redirect_to repairs_url
+        end
       end
     end
   end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update destroy)
-  before_action :logged_in_user, only: %i(index new create show edit update destroy)
-  before_action :admin_user, only: %i(new create edit update destroy)
+  before_action :logged_in_user
+  before_action :admin_user, only: %i(new create edit update destroy import)
   # before_action :correct_user, only: %i(edit update)
 
   def index
@@ -12,8 +12,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
-        filename: "ユーザ一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        if current_user.admin?
+          send_data render_to_string.encode(Encoding::Windows_31J, undef: :replace, row_sep: "\r\n", force_quotes: true),
+          filename: "ユーザ一覧(#{DateTime.current&.strftime("%Y年%-m月%-d日%-H時%-M分現在")}).csv", type: :csv
+        else
+          redirect_to repairs_url
+        end
       end
     end
   end
