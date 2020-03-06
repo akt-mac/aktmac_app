@@ -4,7 +4,8 @@ User.create!(name: "管理者",
              email: "sample@email.com",
              password: "password",
              password_confirmation: "password",
-             admin: true)
+             admin: true,
+             editor: true)
 
 15.times do |n|
   name  = Faker::Name.name
@@ -46,9 +47,6 @@ puts "Sample machine_category creation completed!"
   repair_staff = Faker::Name.name
   note = "備考#{n+1}。テスト、" + Faker::Lorem.sentence
   reception_number = n + 100
-  contacted = 1
-  delivery = 1
-  reminder = 1
   Repair.create!(reception_day: reception_day,
                  customer_name: customer_name,
                  address: address,
@@ -60,10 +58,7 @@ puts "Sample machine_category creation completed!"
                  progress: progress,
                  repair_staff: repair_staff,
                  note: note,
-                 reception_number: reception_number,
-                 contacted: contacted,
-                 delivery: delivery,
-                 reminder: reminder)
+                 reception_number: reception_number)
 end
 
 puts "Sample repair creation completed!"

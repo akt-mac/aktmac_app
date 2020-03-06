@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_014114) do
+ActiveRecord::Schema.define(version: 2020_03_06_074017) do
 
   create_table "machine_categories", force: :cascade do |t|
     t.integer "code"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_014114) do
     t.datetime "updated_at", null: false
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.boolean "editor", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
