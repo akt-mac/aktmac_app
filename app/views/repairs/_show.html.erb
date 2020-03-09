@@ -2,6 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h1>修理詳細</h1>
+      <h6><%= link_to "リンク", show_sub_repair_path %></h6>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -76,6 +77,8 @@
           </tbody>
         </table>
       </table>
+      <input id="copyTarget" type="text" value=<%= @repair.customer_name %> readonly>
+      <button onclick="copyToClipboard()">コピー</button>
     </div>
     <div class="modal-footer">
       <div class="center">
@@ -84,3 +87,20 @@
     </div>
   </div>
 </div>
+
+<!-- URLコピー -->
+<script>
+    function copyToClipboard() {
+        // コピー対象をJavaScript上で変数として定義する
+        var copyTarget = document.getElementById("copyTarget");
+
+        // コピー対象のテキストを選択する
+        copyTarget.select();
+
+        // 選択しているテキストをクリップボードにコピーする
+        document.execCommand("Copy");
+
+        // コピーをお知らせする
+        alert("コピーしました。 : " + copyTarget.value);
+    }
+</script>

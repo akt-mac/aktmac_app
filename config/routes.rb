@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
   resources :repairs do
     member do
+      get 'show_sub'
       get 'edit_progress' # 進捗チェック
       patch 'update_progress'
       patch 'update_contacted' # 連絡チェック

@@ -1,0 +1,81 @@
+<% provide(:title, @repair.customer_name) %>
+<div class="table-show-sub">
+  <table class="table table-sm table-bordered">
+    <tbody>
+      <tr>
+        <th width="200"><%= Repair.human_attribute_name :reception_day %></th>
+        <td>
+          <%= @repair.reception_day.strftime("%Y/%-m/%d/") %>
+          <%= "(#{$days_of_the_week[@repair.reception_day.wday]})" %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :reception_number %></th>
+        <td><%= blank_text(format_reception_number(@repair.reception_number)) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :customer_name %></th>
+        <td><%= @repair.customer_name %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :address %></th>
+        <td><%= blank_text(@repair.address) %></td>
+      </tr>
+      <tr>
+        <th height="170"><%= Repair.human_attribute_name :phone_number %></th>
+        <td><%= blank_text(@repair.phone_number) %></td>
+      </tr>
+      <tr>
+        <th height="170"><%= Repair.human_attribute_name :mobile_phone_number %></th>
+        <td><%= blank_text(@repair.mobile_phone_number) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :machine_model %></th>
+        <td>
+          <%= "#{blank_text(@repair.machine_model)}" %><%= "&nbsp;".html_safe if @repair.machine_model.present? %><%= @repair.category %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :condition %></th>
+        <td><%= simple_format(@repair.condition) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :note %></th>
+        <td><%= simple_format(@repair.note) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :progress %></th>
+        <td><%= progress_text(@repair.progress) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :contacted %></th>
+        <td><%= progress_text(@repair.contacted) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :delivery %></th>
+        <td><%= progress_text(@repair.delivery) %></td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :completed %></th>
+        <td>
+          <% if @repair.completed.present? %>
+            <%= @repair.completed.try(:strftime, "%Y/%-m/%d") %>
+            <%= "(#{$days_of_the_week[@repair.completed.wday]})" %>
+          <% else %>
+            ―
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= Repair.human_attribute_name :repair_staff %></th>
+        <td>
+          <% if @repair.repair_staff.present? %>
+            <%= @repair.repair_staff %>
+          <% else %>
+            ―
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

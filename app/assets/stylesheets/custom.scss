@@ -37,6 +37,25 @@ input[type="radio"] {
    margin-right: 0.5em;
 }
 
+.table-show-sub {
+  font-size: 40px;
+  display: table;
+  table {
+    border-width: 3px;
+  }
+  th {
+    border-width: 3px;
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #ccc;
+  }
+  td {
+    border-width: 3px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
 /* ヘッダー */
 
 #logo {
