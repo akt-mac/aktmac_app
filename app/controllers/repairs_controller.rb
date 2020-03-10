@@ -67,6 +67,7 @@ class RepairsController < ApplicationController
   end
 
   def show
+    @url = show_sub_repair_url
   end
 
   def show_sub
