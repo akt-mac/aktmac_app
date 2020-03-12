@@ -23,11 +23,22 @@
       </tr>
       <tr>
         <th height="170"><%= Repair.human_attribute_name :phone_number %></th>
-        <td><%= blank_text(@repair.phone_number) %></td>
+        <td>
+          <% if @repair.phone_number.present? %>
+            <a href=<%="tel:#{@repair.phone_number}" %>>
+          <% end %>
+          <%= blank_text(@repair.phone_number) %>
+          </a>
+        </td>
       </tr>
       <tr>
         <th height="170"><%= Repair.human_attribute_name :mobile_phone_number %></th>
-        <td><%= blank_text(@repair.mobile_phone_number) %></td>
+        <td>
+          <% if @repair.mobile_phone_number.present? %>
+            <a href=<%="tel:#{@repair.mobile_phone_number}" %>>
+          <% end %>
+          <%= blank_text(@repair.mobile_phone_number) %>
+        </td>
       </tr>
       <tr>
         <th><%= Repair.human_attribute_name :machine_model %></th>

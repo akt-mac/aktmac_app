@@ -77,13 +77,11 @@
           </tbody>
         </table>
       </table>
-      <div class="form-inline">
-        <div class="form-group">
-          <input class="form-control" id="copyTarget" type="text" value=<%= "#{@repair.customer_name.gsub(" ", "")}&nbsp;#{@url}".html_safe %> readonly>
+      <div class="input-group col col-md-10">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary input-group" onclick="copyToClipboard()">連絡用コピー</button>
         </div>
-        <div class="form-group">
-          <button class="btn btn-outline-secondary" onclick="copyToClipboard()">連絡用コピー</button>
-        </div>
+        <input class="form-control" id="copyTarget" type="text" value=<%= "#{@repair.customer_name.gsub(" ", "")}&nbsp;#{@url}".html_safe %> readonly>
       </div>
     </div>
     <div class="modal-footer">
@@ -92,6 +90,13 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input type="text" class="form-control" placeholder="ユーザー名" aria-label="ユーザー名" aria-describedby="basic-addon1">
 </div>
 
 <!-- URLコピー -->
