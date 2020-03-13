@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i(show edit update destroy)
+  before_action :set_user, only: %i(show edit update editor_switch destroy)
   before_action :logged_in_user
   before_action :admin_user, only: %i(new create edit update destroy import)
-  # before_action :correct_user, only: %i(edit update)
+  before_action :correct_and_admin_user, only: %i(show editor_switch)
 
   def index
     @users_all = User.all
@@ -51,6 +51,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def editor_switch
+    if @user.update_attributes!(editor_params)
+      flash[:success] = "#{@user.name}の編集権限を変更しました。"
+      redirect_to @user
+    end
+  end
+
   def destroy
     @user.destroy
     flash[:danger] = "#{@user.name}のユーザー情報を削除しました。"
@@ -72,5 +79,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def editor_params
+      params.require(:user).permit(:editor)
     end
 end

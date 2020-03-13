@@ -15,5 +15,6 @@
 
   <div class="center">
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>
+    <%= link_to "戻る", users_path, class: "btn btn-secondary btn-lg btn-#{yield(:class_text)}" %>
   </div>
 <% end %>

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users do
+    member do
+      patch 'editor_switch' # 編集権限切替
+    end
     collection do
       post 'import'
     end

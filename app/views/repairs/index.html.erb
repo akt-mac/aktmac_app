@@ -70,10 +70,12 @@
           </td>
           <td><%= r.machine_model %></td>
           <td>
-            <% if r.progress == 1 %>
+            <% if r.progress == 1 && current_user.editor? %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
-            <% else %>
+            <% elsif r.progress == 2 && current_user.editor? %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
+            <% else %>
+              <%= progress_text(r.progress) %>
             <% end %>
           </td>
           <td>

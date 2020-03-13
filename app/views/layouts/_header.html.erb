@@ -17,7 +17,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
                 <li class="dropdown-item">
-                  <%= link_to "ユーザー登録", signup_path, id: "header-menu" if current_user.admin? %>
+                  <%= link_to "ユーザー登録", users_path, id: "header-menu" %>
                 </li>
                 <li class="dropdown-item">
                   <%= link_to "製品カテゴリ登録", machine_categories_path, id: "header-menu" %>
@@ -34,7 +34,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item">
-                <%= link_to "ユーザー一覧", users_path, id: "header-menu" %>
+                <%= link_to "ユーザー情報", user_path(current_user), id: "header-menu" %>
               </li>
               <li class="dropdown-item">
                 <%= link_to "ログアウト", logout_path, method: :delete, id: "header-menu"%>

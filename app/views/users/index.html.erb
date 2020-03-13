@@ -1,5 +1,8 @@
 <% provide(:title, "ユーザー一覧") %>
 <h1>ユーザー一覧</h1>
+<div class="">
+  <%= link_to "ユーザー登録", signup_path, class: "btn btn-primary btn-user--new" %>
+</div>
 <div>
   <%= will_paginate @users, previous_label: '<', next_label: '>', inner_window: 1 %>
   <table class="table table-bordered table-condensed center id="table-users"">
