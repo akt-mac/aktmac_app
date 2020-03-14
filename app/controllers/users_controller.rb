@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update editor_switch destroy)
   before_action :logged_in_user
   before_action :admin_user, only: %i(new create edit update destroy import)
-  before_action :correct_and_admin_user, only: %i(show editor_switch)
+  before_action :correct_or_admin_user, only: %i(show editor_switch)
 
   def index
     @users_all = User.all

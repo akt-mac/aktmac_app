@@ -44,8 +44,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def correct_and_admin_user
+  def correct_or_admin_user
     unless current_user?(@user) || current_user.admin?
+      redirect_to root_url
+      flash[:danger] = "アクセス権限がありません。"
+    end
+  end
+
+  def editor_or_admin_user
+    unless current_user.editor? || current_user.admin?
       redirect_to root_url
       flash[:danger] = "アクセス権限がありません。"
     end

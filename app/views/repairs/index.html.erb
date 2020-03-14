@@ -33,7 +33,9 @@
           <th><%= Repair.human_attribute_name :contacted %></th>
           <th><%= Repair.human_attribute_name :delivery %></th>
           <th><%= Repair.human_attribute_name :reminder %></th>
-          <th></th>
+          <% if edit_authority %>
+            <th></th>
+          <% end %>
           <% if current_user.admin? && !current_user?(@user) %>
             <th></th>
           <% end %>
@@ -70,40 +72,46 @@
           </td>
           <td><%= r.machine_model %></td>
           <td>
-            <% if r.progress == 1 && current_user.editor? %>
+            <% if r.progress == 1 && edit_authority %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
-            <% elsif r.progress == 2 && current_user.editor? %>
+            <% elsif r.progress == 2 && edit_authority %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
             <% else %>
               <%= progress_text(r.progress) %>
             <% end %>
           </td>
           <td>
-            <% if r.contacted == 1 %>
+            <% if r.contacted == 1 && r.progress == 2 && edit_authority %>
               <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
-            <% else %>
+            <% elsif r.contacted == 2 && edit_authority %>
               <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "repair_check" %>
+            <% else %>
+              <%= progress_text(r.contacted) %>
             <% end %>
           </td>
           <td>
-            <% if r.delivery == 1 %>
+            <% if r.delivery == 1 && r.progress == 2 && edit_authority %>
               <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
-            <% elsif r.delivery == 2 %>
+            <% elsif r.delivery == 2 && edit_authority %>
               <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "repair_check" %>
+            <% else %>
+              <%= progress_text(r.delivery) %>
             <% end %>
           </td>
           <td>
-            <% if r.delivery == 1 && r.reminder == 1 %>
+            <% if r.delivery == 1 && r.reminder == 1 && edit_authority %>
               <%= link_to reminder_text(r.reminder), update_reminder_repair_path(r), method: :patch %>
-            <% elsif r.delivery == 1 && r.reminder == 2 %>
-              <%= link_to reminder_text(r.reminder), update_reminder_repair_path(r), method: :patch, class: "reminder_check" %>
-            <% elsif r.delivery == 2 && r.reminder == 1 %>
+            <% elsif r.delivery == 1 && r.reminder == 2 && edit_authority %>
+              <%= link_to reminder_text(r.reminder), update_reminder_repair_path(r), method: :patch, class: "reminder_check"%>
+            <% elsif r.delivery == 2 && r.reminder == 1 || edit_no_authority %>
               <%= reminder_text(r.reminder) %>
             <% end %>
           </td>
-          <td>
-            <%= link_to "修正", edit_repair_path(r), class: "btn btn-sm btn-success" %>
-          </td>
+          <% if edit_authority %>
+            <td>
+              <%= link_to "修正", edit_repair_path(r), class: "btn btn-sm btn-success" %>
+            </td>
+          <% end %>
           <% if current_user.admin? && !current_user?(@user) %>
             <td>
               <%= link_to "削除", r, method: :delete, data: { confirm: "#{r.customer_name}のデータを削除します。",

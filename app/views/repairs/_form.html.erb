@@ -47,6 +47,21 @@
     <%= f.text_area :note, rows: 3, placeholder: '500文字以内', class: "form-control" %>
   </div>
 
+  <% if current_user.admin? %> <!-- adminのみ完了済み進捗カテゴリを編集可能にできるようにする。要改修。 -->
+    <div>
+      <%= f.label "未完了", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :progress, 1 %>
+      <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :progress, 2 %>
+    </div>
+    <div>
+      <%= f.label "未連絡", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :contacted, 1 %>
+      <%= f.label "連絡済", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :contacted, 2 %>
+    </div>
+  <% end %>
+
   <div class="center">
     <%= link_to "戻る", repairs_path, class: "btn btn-secondary btn-lg btn-#{yield(:class_text)}" %>
     <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-#{yield(:class_text)}" %>

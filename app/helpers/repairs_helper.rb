@@ -70,4 +70,14 @@ module RepairsHelper
   def month_text(text, format)
     (text + "01").to_date&.strftime(format)
   end
+
+  # 編集権限あり
+  def edit_authority
+    current_user.editor? || current_user.admin?
+  end
+
+  # 編集権限なし
+  def edit_no_authority
+    !current_user.editor? || !current_user.admin?
+  end
 end
