@@ -20,6 +20,7 @@ class RepairPDF < Prawn::Document
     bounding_box([0, 500, y_position], width: 270, height: 20) do
       font_size 10.5
       draw_text "修理一覧(#{@date.slice(0..3)}年)", size: 25, at: [0, 20]
+      draw_text "#{@year_count}", at: [400, 50]
       draw_text "出力日:  #{Date.current.strftime("%Y年%-m月%d日")}", at: [620, 20]
     end
   end

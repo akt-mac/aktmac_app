@@ -70,8 +70,13 @@ class UsersController < ApplicationController
       redirect_to data_management_repairs_url
     else
       num = User.import(params[:users_file])
-      flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
-      redirect_to users_url
+      if num > 0
+        flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
+        redirect_to users_url
+      else
+        flash[:danger] = "読み込みエラーが発生しました。フォーマットを確認してください。"
+        redirect_to data_management_repairs_url
+      end
     end
   end
 

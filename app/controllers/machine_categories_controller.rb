@@ -61,8 +61,13 @@ class MachineCategoriesController < ApplicationController
       redirect_to data_management_repairs_url
     else
       num = MachineCategory.import(params[:machine_categories_file])
-      flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
-      redirect_to machine_categories_url
+      if num > 0
+        flash[:success] = "#{num.to_s}件の情報を追加/更新しました。"
+        redirect_to machine_categories_url
+      else
+        flash[:danger] = "読み込みエラーが発生しました。フォーマットを確認してください。"
+        redirect_to data_management_repairs_url
+      end
     end
   end
 

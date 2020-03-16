@@ -15,6 +15,13 @@ class Repair < ApplicationRecord
   validates :delivery, presence: true, length: { maximum: 1 }
   validates :reminder, presence: true, length: { maximum: 1 }
 
+  # 引渡済と催促有の同時登録は無効
+  validate :reminder_is_invalid_if_delivered
+
+  def reminder_is_invalid_if_delivered
+    errors.add(:reminder, "有と引渡済は同時に登録できません。") if delivery == 2 && reminder == 2
+  end
+
   scope :reception_day_between, -> from, to {
     if from.present? && to.present?
       where(reception_day: from..to)
@@ -41,21 +48,24 @@ class Repair < ApplicationRecord
 
     open(file.path, 'r:cp932:utf-8', undef: :replace) do |f|
       csv = CSV.new(f, :headers => :first_row)
-      csv.each do |row|
-        next if row.header_row?
-        table = Hash[[row.headers, row.fields].transpose]
+      begin
+        csv.each do |row|
+          next if row.header_row?
+          table = Hash[[row.headers, row.fields].transpose]
 
-        repair = find_by(id: table["id"])
-        if repair.nil?
-          repair = new
+          repair = find_by(id: table["id"])
+          if repair.nil?
+            repair = new
+          end
+
+          repair.attributes = table.to_hash.slice(*table.to_hash.except(:id).keys)
+
+          if repair.valid?
+            repair.save!
+            imported_num += 1
+          end
         end
-
-        repair.attributes = table.to_hash.slice(*table.to_hash.except(:id).keys)
-
-        if repair.valid?
-          repair.save!
-          imported_num += 1
-        end
+      rescue
       end
     end
     imported_num

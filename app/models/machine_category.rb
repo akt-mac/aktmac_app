@@ -4,24 +4,27 @@ class MachineCategory < ApplicationRecord
 
   def self.import(file)
     imported_num = 0
-    
+
     open(file.path, 'r:cp932:utf-8', undef: :replace) do |f|
       csv = CSV.new(f, :headers => :first_row)
-      csv.each do |row|
-        next if row.header_row?
-        table = Hash[[row.headers, row.fields].transpose]
+      begin
+        csv.each do |row|
+          next if row.header_row?
+          table = Hash[[row.headers, row.fields].transpose]
 
-        machine_category = find_by(id: table["id"])
-        if machine_category.nil?
-          machine_category = new
+          machine_category = find_by(id: table["id"])
+          if machine_category.nil?
+            machine_category = new
+          end
+
+          machine_category.attributes = table.to_hash.slice(*table.to_hash.except(:id).keys)
+
+          if machine_category.valid?
+            machine_category.save!
+            imported_num += 1
+          end
         end
-
-        machine_category.attributes = table.to_hash.slice(*table.to_hash.except(:id).keys)
-
-        if machine_category.valid?
-          machine_category.save!
-          imported_num += 1
-        end
+      rescue
       end
     end
     imported_num
