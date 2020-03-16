@@ -47,7 +47,7 @@
     <%= f.text_area :note, rows: 3, placeholder: '500文字以内', class: "form-control" %>
   </div>
 
-  <% if current_user.admin? %> <!-- adminのみ完了済み進捗カテゴリを編集可能にできるようにする。要改修。 -->
+  <% if current_user.admin? && @progress_edit %> <!-- adminかつupdate時のみ、進捗カテゴリを編集可能。 -->
     <div>
       <%= f.label "未完了", class: "label-#{yield(:class_text)}" %>
       <%= f.radio_button :progress, 1 %>
@@ -59,6 +59,18 @@
       <%= f.radio_button :contacted, 1 %>
       <%= f.label "連絡済", class: "label-#{yield(:class_text)}" %>
       <%= f.radio_button :contacted, 2 %>
+    </div>
+    <div>
+      <%= f.label "未引渡", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :delivery, 1 %>
+      <%= f.label "引渡済", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :delivery, 2 %>
+    </div>
+    <div>
+      <%= f.label "催促無", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :reminder, 1 %>
+      <%= f.label "催促有", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :reminder, 2 %>
     </div>
   <% end %>
 

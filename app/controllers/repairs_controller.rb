@@ -55,6 +55,7 @@ class RepairsController < ApplicationController
 
   def new
     @repair = Repair.new
+    @progress_edit = false
   end
 
   def create
@@ -75,6 +76,7 @@ class RepairsController < ApplicationController
   end
 
   def edit
+    @progress_edit = true
   end
 
   def update
@@ -220,7 +222,11 @@ class RepairsController < ApplicationController
                                      :condition,
                                      :category,
                                      :note,
-                                     :reception_number)
+                                     :reception_number,
+                                     :progress,
+                                     :contacted,
+                                     :delivery,
+                                     :reminder)
     end
 
     # 修理進捗更新
