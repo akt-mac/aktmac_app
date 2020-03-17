@@ -25,6 +25,9 @@
                 <li class="dropdown-item">
                   <%= link_to "データ入出力", data_management_repairs_path, id: "header-menu" if current_user.admin? %>
                 </li>
+                <li class="dropdown-item">
+                  <%= link_to "まとめて削除", delete_check_repairs_path, id: "header-menu" if current_user.admin? %>
+                </li>
               </ul>
             </li>
           <% end %>

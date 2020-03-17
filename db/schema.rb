@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_06_074017) do
+ActiveRecord::Schema.define(version: 2020_03_17_064901) do
 
   create_table "machine_categories", force: :cascade do |t|
     t.integer "code"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_074017) do
     t.integer "contacted", default: 1
     t.integer "delivery", default: 1
     t.integer "reminder", default: 1
+    t.string "delete_check"
   end
 
   create_table "users", force: :cascade do |t|

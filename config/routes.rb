@@ -29,6 +29,10 @@ Rails.application.routes.draw do
       get 'export_pdf'
       get 'data_management'
       post 'import'
+      get 'delete_check' # まとめて削除チェック
+      patch 'update_delete_check' # まとめて削除チェック更新
+      get 'delete_confirmation' # まとめて削除確認
+      patch 'delete_all' # まとめて削除
     end
   end
   resources :machine_categories do

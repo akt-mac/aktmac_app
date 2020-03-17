@@ -352,6 +352,13 @@ input[type="radio"] {
   display: none;
 }
 
+/* まとめて削除ページ */
+
+.delete_check_btn {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 /* エラーメッセージ */
 
 #error_explanation {
