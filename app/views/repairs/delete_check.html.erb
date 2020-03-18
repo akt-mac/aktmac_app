@@ -3,7 +3,7 @@
   <div>
     <h1>まとめて削除</h1>
     <div class="delete_check_btn">
-      <%= f.submit "まとめて削除", class: "btn btn-danger" %>
+      <%= f.submit "削除データ選択", class: "btn btn-danger" %>
       <%= link_to "キャンセル", repairs_url, class: "btn btn-outline-secondary" %>
     </div>
     <table class="table table-bordered table-condensed table-hover">
@@ -23,28 +23,28 @@
       </thead>
       <tbody class="center">
         <% @repairs.each do |r| %>
-        <%= f.fields_for "repairs[]", r do |repair| %>
-          <% if r.reminder == 2 %>
-            <tr bgcolor="<%= "#FFCCCC" %>">
-          <% elsif r.delivery == 2 %>
-            <tr bgcolor="<%= "#e2e4eb" %>">
-          <% elsif r.progress == 2 && r.delivery == 1 %>
-            <tr bgcolor="<%= "#F4F4F4" %>">
-          <% else %>
-            <tr>
+          <%= f.fields_for "repairs[]", r do |repair| %>
+            <% if r.reminder == 2 %>
+              <tr bgcolor="<%= "#FFCCCC" %>">
+            <% elsif r.delivery == 2 %>
+              <tr bgcolor="<%= "#e2e4eb" %>">
+            <% elsif r.progress == 2 && r.delivery == 1 %>
+              <tr bgcolor="<%= "#F4F4F4" %>">
+            <% else %>
+              <tr>
+            <% end %>
+            <td><%= r.reception_day.strftime("%Y/%-m/%-d") %></td>
+            <td><%= blank_text(format_reception_number(r.reception_number)) %></td>
+            <td><%= r.customer_name %></td>
+            <td><%= r.machine_model %></td>
+            <td><%= progress_text(r.progress) %></td>
+            <td><%= progress_text(r.contacted) %></td>
+            <td><%= progress_text(r.delivery) %></td>
+            <td><%= reminder_text(r.reminder) %></td>
+            <td><%= repair.check_box :delete_check, style: "transform:scale(3.0)" %></td>
+            <td></td>
+          </tr>
           <% end %>
-          <td><%= r.reception_day.strftime("%Y/%-m/%-d") %></td>
-          <td><%= blank_text(format_reception_number(r.reception_number)) %></td>
-          <td><%= r.customer_name %></td>
-          <td><%= r.machine_model %></td>
-          <td><%= progress_text(r.progress) %></td>
-          <td><%= progress_text(r.contacted) %></td>
-          <td><%= progress_text(r.delivery) %></td>
-          <td><%= reminder_text(r.reminder) %></td>
-          <td><%= repair.check_box :delete_check %></td>
-          <td></td>
-        </tr>
-        <% end %>
         <% end %>
       </tbody>
     </table>

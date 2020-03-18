@@ -5,6 +5,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= favicon_link_tag('favicon.ico') %>
+    <%= favicon_link_tag('apple-touch-icon.png', {:rel => 'apple-touch-icon', :sizes => '180*180', :type => 'image/png'}) %>
+    <%= favicon_link_tag('android-touch-icon.png', {:rel => 'android-touch-icon', :sizes => '192*192', :type => 'image/png'}) %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!--[if lt IE 9]>

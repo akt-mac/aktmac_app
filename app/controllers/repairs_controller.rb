@@ -225,11 +225,20 @@ class RepairsController < ApplicationController
       repair = Repair.find(id)
       repair.update_attributes!(item)
     end
-    flash[:success] = "テスト"
+    flash[:warning] = "以下のデータが選択されました。よろしければ削除してください。"
     redirect_to delete_confirmation_repairs_url
   end
 
-  def destroy_all
+  def delete_confirmation
+    @repairs = Repair.where(delete_check: 1)
+  end
+
+  def delete_all
+    @repairs = Repair.where(delete_check: 1)
+    delete_count = @repairs.count
+    @repairs.each { |repair| repair.destroy }
+    flash[:danger] = "#{delete_count}件の修理情報を削除しました。"
+    redirect_to repairs_url
   end
 
   private
