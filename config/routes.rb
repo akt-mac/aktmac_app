@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       patch 'update_delete_check' # まとめて削除チェック更新
       get 'delete_confirmation' # まとめて削除確認
       delete 'delete_all' # まとめて削除
+      patch 'reset_delete_check' # 削除選択のリセット
     end
   end
   resources :machine_categories do

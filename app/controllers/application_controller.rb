@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
     @machine_category = MachineCategory.find(params[:id])
   end
 
+  # 削除フラグの付いた修理レコード
+  def repair_with_dele_flag
+    @delete_flag_repairs = Repair.where(delete_check: 1)
+  end
+
   def logged_in_user
     unless logged_in?
       store_location

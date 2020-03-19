@@ -1,38 +1,52 @@
 <% provide(:title, "まとめて削除") %>
-<%= form_with(model: @repair, url: delete_all_repairs_path, local: true, method: :delete) do |f| %>
-  <div>
-    <h1>まとめて削除</h1>
+<div>
+  <h1>まとめて削除</h1>
+  <div class="delete_check_form">
     <div class="delete_check_btn">
-      <%= f.submit "削除データ選択", class: "btn btn-danger" %>
-      <%= link_to "キャンセル", repairs_url, class: "btn btn-outline-secondary" %>
+      <%= form_with(model: @repair, url: delete_all_repairs_path, local: true, method: :delete) do |f| %>
+      <%= f.submit text_space("削除"), data: { confirm: "#{@delete_flag_repairs.count}件のデータを削除します。",
+          cancel: "キャンセル", commit: "削除"}, title: "削除の確認", class: "btn btn-danger" %>
+      <% end %>
     </div>
-    <table class="table table-bordered table-condensed table-hover">
-      <thead class="thead-light center">
-        <tr>
-          <th><%= Repair.human_attribute_name :reception_day %></th>
-          <th><%= Repair.human_attribute_name :reception_number %></th>
-          <th><%= Repair.human_attribute_name :customer_name %></th>
-          <th><%= Repair.human_attribute_name :machine_model %></th>
-          <th><%= Repair.human_attribute_name :progress %></th>
-          <th><%= Repair.human_attribute_name :contacted %></th>
-          <th><%= Repair.human_attribute_name :delivery %></th>
-          <th><%= Repair.human_attribute_name :reminder %></th>
-        </tr>
-      </thead>
-      <tbody class="center">
-        <% @repairs.each do |r| %>
-          <tr>
-            <td><%= r.reception_day.strftime("%Y/%-m/%-d") %></td>
-            <td><%= blank_text(format_reception_number(r.reception_number)) %></td>
-            <td><%= r.customer_name %></td>
-            <td><%= r.machine_model %></td>
-            <td><%= progress_text(r.progress) %></td>
-            <td><%= progress_text(r.contacted) %></td>
-            <td><%= progress_text(r.delivery) %></td>
-            <td><%= reminder_text(r.reminder) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="delete_check_btn">
+      <%= form_with(model: @repair, url: reset_delete_check_repairs_path, local: true, method: :patch) do |f| %>
+        <%= f.submit "リセット", class: "btn btn-outline-primary" %>
+      <% end %>
+    </div>
+    <div class="delete_check_btn">
+      <%= link_to "前画面に戻る", delete_check_repairs_path, class: "btn btn-outline-secondary" %>
+    </div>
   </div>
-<% end %>
+  <table class="table table-bordered table-condensed table-hover">
+    <thead class="thead-light center">
+      <tr>
+        <th><%= Repair.human_attribute_name :reception_day %></th>
+        <th><%= Repair.human_attribute_name :reception_number %></th>
+        <th><%= Repair.human_attribute_name :customer_name %></th>
+        <th><%= Repair.human_attribute_name :machine_model %></th>
+        <th><%= Repair.human_attribute_name :progress %></th>
+        <th><%= Repair.human_attribute_name :contacted %></th>
+        <th><%= Repair.human_attribute_name :delivery %></th>
+        <th><%= Repair.human_attribute_name :reminder %></th>
+      </tr>
+    </thead>
+    <tbody class="center">
+      <% @delete_flag_repairs.each do |r| %>
+      <% if r.reception_day.to_date >= Date.current << 6 %>
+        <tr bgcolor="<%= "#fff3cd" %>">
+      <% else %>
+        <tr>
+      <% end %>
+          <td><%= r.reception_day.strftime("%Y/%-m/%-d") %></td>
+          <td><%= blank_text(format_reception_number(r.reception_number)) %></td>
+          <td><%= r.customer_name %></td>
+          <td><%= r.machine_model %></td>
+          <td><%= progress_text(r.progress) %></td>
+          <td><%= progress_text(r.contacted) %></td>
+          <td><%= progress_text(r.delivery) %></td>
+          <td><%= reminder_text(r.reminder) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

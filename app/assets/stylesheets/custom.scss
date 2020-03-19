@@ -345,7 +345,6 @@ input[type="radio"] {
 }
 
 .csv_inport_btn{
-
 }
 
 .csv_inport_form{
@@ -354,9 +353,13 @@ input[type="radio"] {
 
 /* まとめて削除ページ */
 
-.delete_check_btn {
+.delete_check_form {
   text-align: center;
   margin-bottom: 20px;
+}
+
+.delete_check_btn {
+  display: inline-block;
 }
 
 /* エラーメッセージ */

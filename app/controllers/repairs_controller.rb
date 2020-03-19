@@ -1,5 +1,6 @@
 class RepairsController < ApplicationController
   before_action :set_repair, only: %i(show show_sub edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
+  before_action :repair_with_dele_flag, only: %i(update_delete_check delete_confirmation delete_all reset_delete_check)
   before_action :all_machine_category, only: %i(new create edit update)
   before_action :admin_user, only: %i(data_management destroy import delete_check update_delete_check delete_confirmation delete_all)
   before_action :editor_or_admin_user, only: %i(edit update update_progress update_contacted update_delivery update_reminder)
@@ -137,8 +138,7 @@ class RepairsController < ApplicationController
 
   def update_delivery
     if @repair.delivery == 1
-      if @repair.update_attributes(delivery: 2)
-        @repair.update_attributes(reminder: 1)
+      if @repair.update_attributes(delivery: 2, reminder: 1)
         flash[:success] = "#{@repair.customer_name}：引渡し済"
       else
         flash[:danger] = UPDATE_ERROR_MSG
@@ -224,21 +224,42 @@ class RepairsController < ApplicationController
     delete_check_params.each do |id, item|
       repair = Repair.find(id)
       repair.update_attributes!(item)
+      @last_reception_day = @delete_flag_repairs.maximum(:reception_day)&.to_date
     end
-    flash[:warning] = "以下のデータが選択されました。よろしければ削除してください。"
-    redirect_to delete_confirmation_repairs_url
+    if Repair.where(delete_check: 1).present? && @last_reception_day <= Date.current << 6
+      flash[:warning] = "以下のデータが選択されました。よろしければ削除してください。<br>
+                         削除しない場合は【リセット】を押してください。選択を修正する場合は【前画面に戻る】を押してください。".html_safe
+      redirect_to delete_confirmation_repairs_url
+    elsif Repair.where(delete_check: 1).present? && @last_reception_day >= Date.current << 6
+      flash[:warning] = "以下のデータが選択されました。よろしければ削除してください。<br>
+                         削除しない場合は【リセット】を押してください。選択を修正する場合は【前画面に戻る】を押してください。<br>
+                         注意：6ヶ月以内の受付データが含まれています。".html_safe
+      redirect_to delete_confirmation_repairs_url
+    else
+      flash[:danger] = "削除するデータを選択してください。"
+      redirect_to delete_check_repairs_path
+    end
   end
 
   def delete_confirmation
-    @repairs = Repair.where(delete_check: 1)
+    if @delete_flag_repairs.blank?
+      redirect_to root_url
+    end
   end
 
   def delete_all
-    @repairs = Repair.where(delete_check: 1)
-    delete_count = @repairs.count
-    @repairs.each { |repair| repair.destroy }
-    flash[:danger] = "#{delete_count}件の修理情報を削除しました。"
+    delete_count = @delete_flag_repairs.count
+    @delete_flag_repairs.each { |repair| repair.destroy }
+    flash[:danger] = "#{delete_count}件の修理データを削除しました。"
     redirect_to repairs_url
+  end
+
+  def reset_delete_check
+    @delete_flag_repairs.each do |repair|
+      repair.update_attributes!(delete_check: 0)
+    end
+    flash[:success] = "削除の選択を取り消しました。データは削除されていません。"
+    redirect_to delete_check_repairs_url
   end
 
   private

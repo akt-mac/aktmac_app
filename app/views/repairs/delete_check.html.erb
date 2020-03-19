@@ -1,10 +1,10 @@
 <% provide(:title, "まとめて削除") %>
 <%= form_with(model: @repair, url: update_delete_check_repairs_path, local: true, method: :patch) do |f| %>
   <div>
-    <h1>まとめて削除</h1>
-    <div class="delete_check_btn">
-      <%= f.submit "削除データ選択", class: "btn btn-danger" %>
-      <%= link_to "キャンセル", repairs_url, class: "btn btn-outline-secondary" %>
+    <h1>削除するデータを選択してください。</h1>
+    <h4 class="center">選択したら決定ボタンを押して次画面へ進んでください。</h4>
+    <div class="delete_check_form">
+      <%= f.submit text_space("決定"), class: "btn btn-warning" %>
     </div>
     <table class="table table-bordered table-condensed table-hover">
       <thead class="thead-light center">
