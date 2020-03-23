@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       patch 'reset_delete_check' # 削除選択のリセット
     end
   end
-  resources :machine_categories do
+  resources :machine_categories, except: :show do
     collection do
       post 'import'
     end

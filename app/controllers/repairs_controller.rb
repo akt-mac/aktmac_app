@@ -1,10 +1,10 @@
 class RepairsController < ApplicationController
+  before_action :logged_in_user
+  before_action :editor_or_admin_user, only: %i(edit update update_progress update_contacted update_delivery update_reminder)
+  before_action :admin_user, only: %i(data_management destroy import delete_check update_delete_check delete_confirmation delete_all)
   before_action :set_repair, only: %i(show show_sub edit update destroy edit_progress update_progress edit_contacted update_contacted update_delivery update_reminder)
   before_action :repair_with_dele_flag, only: %i(update_delete_check delete_confirmation delete_all reset_delete_check)
   before_action :all_machine_category, only: %i(new create edit update)
-  before_action :admin_user, only: %i(data_management destroy import delete_check update_delete_check delete_confirmation delete_all)
-  before_action :editor_or_admin_user, only: %i(edit update update_progress update_contacted update_delivery update_reminder)
-  before_action :logged_in_user
 
   UPDATE_ERROR_MSG = "エラー：データ更新がされませんでした。やり直してください。"
 

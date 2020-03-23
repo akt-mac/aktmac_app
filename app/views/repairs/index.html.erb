@@ -1,5 +1,13 @@
 <% provide(:title, "一覧") %>
 <h1>修理一覧</h1>
+<h4>
+  <% if no_progress_count > 0 %>
+    <span class="badge badge-pill badge-danger">未進捗&nbsp;<%= no_progress_count %>件</span>
+  <% end %>
+  <% if no_delivery_count > 0 %>
+    <span class="badge badge-pill badge-primary">未引渡&nbsp;<%= no_delivery_count %>件</span>
+  <% end %>
+</h4>
 <div class="row justify-content-md-center">
   <div class="col-md-12">
     <div class="input-menu">

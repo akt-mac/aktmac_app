@@ -1,7 +1,7 @@
 class MachineCategoriesController < ApplicationController
-  before_action :set_machine_category, only: %i(edit update destroy)
   before_action :logged_in_user
   before_action :admin_user
+  before_action :set_machine_category, only: %i(edit update destroy)
 
   def index
     @machine_categories_all = MachineCategory.all
