@@ -17,7 +17,7 @@ gem 'jquery-rails'
 gem 'rails-i18n', '~> 5.1'
 gem 'roo'
 gem 'sqlite3'
-gem 'puma', '~> 3.11'
+gem 'puma', '>= 3.12.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'duktape'
@@ -25,6 +25,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'nokogiri', '>= 1.10.8'
+gem 'actionview', '>= 5.2.4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
