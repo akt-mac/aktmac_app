@@ -2,6 +2,10 @@
 
 /* 共通 */
 
+.jumbotron {
+  background-color: #fff;
+}
+
 body {
   padding-top: 80px;
 }
@@ -276,6 +280,30 @@ input[type="radio"] {
 
 .table-repair-show th {
    background-color: #e9ecef;
+}
+
+.modal-header {
+  a {
+  text-decoration: none;
+  }
+}
+
+.modal-header {
+  a:visited {
+    color: #000;
+  }
+}
+
+.modal-footer {
+  a {
+    text-decoration: none;
+  }
+}
+
+.modal-footer {
+  a:visited {
+    color: #fff;
+  }
 }
 
 /* 修理 製品種目 入力フォーム */

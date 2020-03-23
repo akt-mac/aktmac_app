@@ -3,7 +3,7 @@
     <div class="modal-header">
       <h1>修理詳細</h1>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true"><%= link_to "&times;".html_safe, repairs_path %></span>
       </button>
     </div>
     <div class="modal-body">
@@ -88,7 +88,7 @@
     </div>
     <div class="modal-footer">
       <div class="center">
-      <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">戻る</button>
+      <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal"><%= link_to "戻る".html_safe, repairs_path %></button>
       </div>
     </div>
   </div>
