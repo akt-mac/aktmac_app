@@ -16,7 +16,6 @@ gem 'data-confirm-modal'
 gem 'jquery-rails'
 gem 'rails-i18n', '~> 5.1'
 gem 'roo'
-gem 'sqlite3'
 gem 'puma', '>= 3.12.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -29,6 +28,7 @@ gem 'nokogiri', '>= 1.10.8'
 gem 'actionview', '>= 5.2.4.2'
 
 group :development, :test do
+  gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
