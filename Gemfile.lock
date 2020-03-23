@@ -117,6 +117,7 @@ GEM
     nokogiri (1.10.9-x64-mingw32)
       mini_portile2 (~> 2.4.0)
     pdf-core (0.7.0)
+    pg (1.2.3-x64-mingw32)
     popper_js (1.16.0)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -245,6 +246,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   nokogiri (>= 1.10.8)
+  pg (= 1.2.3)
   prawn
   prawn-table
   pry-rails
