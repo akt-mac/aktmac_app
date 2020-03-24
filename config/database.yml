@@ -22,4 +22,12 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  # 本番環境はpostgreSQLにするのでsqlite3は使わない。
+  # database: db/production.sqlite3
+  
+  # postgreSQLのデータベースに接続します。
+  adapter: postgresql
+  # unicodeという文字コードを使用します。
+  encoding: unicode
+  # DBに接続できる上限の数を決めます。
+  pool: 30
