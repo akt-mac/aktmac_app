@@ -2,12 +2,12 @@ module RepairsHelper
 
   # 未進捗件数
   def no_progress_count
-    Repair.where(progress: 1).count
+    Repair.where(progress: 1).count.to_i
   end
 
   # 修理済で未引渡し件数
   def no_delivery_count
-    Repair.where(progress: 2).where(delivery: 1).count
+    Repair.where(progress: 2).where(delivery: 1).count.to_i
   end
 
   # 受付番号表示
