@@ -17,7 +17,7 @@ User.create!(name: "管理者",
 #                password_confirmation: password)
 # end
 #
-# puts "Sample user creation completed!"
+puts "Sample user creation completed!"
 
 MachineCategory.create!(
   [
