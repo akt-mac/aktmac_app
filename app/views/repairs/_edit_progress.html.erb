@@ -32,11 +32,14 @@
               </tr>
               <tr>
                 <td>
+                  <%= f.radio_button :progress, 1 %>
+                  <%= f.label "未", class: "label-#{yield(:class_text)}" %>
+                  &emsp;&emsp;
+                  <%= f.radio_button :progress, 3 %>
+                  <%= f.label "修理中", class: "label-#{yield(:class_text)}" %>
+                  &emsp;&emsp;
                   <%= f.radio_button :progress, 2 %>
                   <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
-                  &emsp;&emsp;
-                  <%= f.radio_button :progress, 1 %>
-                  <%= f.label "未完了", class: "label-#{yield(:class_text)}" %>
                 </td>
               </tr>
             </table>

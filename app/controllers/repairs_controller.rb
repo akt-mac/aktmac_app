@@ -102,7 +102,11 @@ class RepairsController < ApplicationController
 
   def update_progress
     if @repair.update_attributes(repair_completed_params)
-      if @repair.progress == 2
+      if @repair.progress == 3
+        @repair.completed = nil
+        @repair.save
+        flash[:primary] = "#{@repair.customer_name}：修理中"
+      elsif @repair.progress == 2
         flash[:success] = "#{@repair.customer_name}：修理完了"
       elsif @repair.progress == 1
         flash[:warning] = "#{@repair.customer_name}：修理完了を解除しました。"

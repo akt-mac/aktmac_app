@@ -23,6 +23,8 @@ module RepairsHelper
       "未"
     elsif progress == 2
       "✔"
+    elsif progress == 3
+      "修理中"
     else
       "未登録"
     end

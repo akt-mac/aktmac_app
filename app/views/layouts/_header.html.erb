@@ -1,6 +1,18 @@
-<header class="navbar navbar-expa navbar-dark bg-dark fixed-top">
+<% if Rails.env.development? %>
+  <% provide(:header_title, "修理管理票 development") %>
+<% end %>
+<% if Rails.env.production? %>
+  <% provide(:header_title, "修理管理票") %>
+<% end %>
+
+<% if Rails.env.development? %>
+  <header class="navbar navbar-expa navbar-default fixed-top">
+<% end %>
+<% if Rails.env.production? %>
+  <header class="navbar navbar-expa navbar-dark bg-dark fixed-top">
+<% end %>
   <div class="container">
-    <%= link_to "修理管理票", root_path, id: "logo" %>
+    <%= link_to "#{yield(:header_title)}", root_path, id: "logo" %>
     <div class="header-list">
       <ul>
         <% if logged_in? %>

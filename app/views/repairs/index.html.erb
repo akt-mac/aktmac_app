@@ -84,6 +84,8 @@
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
             <% elsif r.progress == 2 && edit_authority %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
+            <% elsif r.progress == 3 && edit_authority %>
+              <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-primary" %>
             <% else %>
               <%= progress_text(r.progress) %>
             <% end %>
