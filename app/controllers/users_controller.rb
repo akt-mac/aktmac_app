@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @users_all = User.all
-    @users = User.paginate(page: params[:page], per_page: 10)
+    @users = User.paginate(page: params[:page], per_page: 15).order(id: :ASC)
 
     # CSVF出力
     respond_to do |format|
