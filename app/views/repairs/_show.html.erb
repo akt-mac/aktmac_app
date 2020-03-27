@@ -52,9 +52,9 @@
               <th><%= Repair.human_attribute_name :progress %></th>
               <td width="30"><%= progress_text(@repair.progress) %></td>
               <th width="60"><%= Repair.human_attribute_name :contacted %></th>
-              <td width="30"><%= progress_text(@repair.contacted) %></td>
+              <td width="30"><%= item_text(@repair.contacted) %></td>
               <th width="60"><%= Repair.human_attribute_name :delivery %></th>
-              <td width="30"><%= progress_text(@repair.delivery) %></td>
+              <td width="30"><%= item_text(@repair.delivery) %></td>
               <th width="80"><%= Repair.human_attribute_name :completed %></th>
               <td>
                 <% if @repair.completed.present? %>

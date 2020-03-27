@@ -18,8 +18,22 @@ class Repair < ApplicationRecord
   # 引渡済と催促有の同時登録は無効
   validate :reminder_is_invalid_if_delivered
 
+  # 引渡済と修理中の同時登録は無効
+  validate :in_progress_is_invalid_if_delivered
+
+  # 引渡済と完了の同時登録は無効
+  validate :no_progress_is_invalid_if_delivered
+
   def reminder_is_invalid_if_delivered
-    errors.add(:reminder, "有と引渡済は同時に登録できません。") if delivery == 2 && reminder == 2
+    errors.add(:reminder, "有と引渡済は同時に登録できません。催促を解除してください。") if delivery == 2 && reminder == 2
+  end
+
+  def in_progress_is_invalid_if_delivered
+    errors.add(:delivery, "済と修理中は同時に登録できません。先に完了登録をしてください。") if delivery == 2 && progress == 2
+  end
+
+  def no_progress_is_invalid_if_delivered
+    errors.add(:delivery, "済と未完了は同時に登録できません。先に完了登録をしてください。") if delivery == 2 && progress == 1
   end
 
   scope :reception_day_between, -> from, to {

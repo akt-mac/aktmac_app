@@ -102,20 +102,28 @@ class RepairsController < ApplicationController
 
   def update_progress
     if @repair.update_attributes(repair_completed_params)
-      if @repair.progress == 3
+      if @repair.progress == 2
         @repair.completed = nil
         @repair.save
         flash[:primary] = "#{@repair.customer_name}：修理中"
-      elsif @repair.progress == 2
+      elsif @repair.progress == 3
         flash[:success] = "#{@repair.customer_name}：修理完了"
       elsif @repair.progress == 1
-        flash[:warning] = "#{@repair.customer_name}：修理完了を解除しました。"
+        @repair.completed = nil
+        @repair.save
+        flash[:warning] = "#{@repair.customer_name}：進捗情報を解除しました。"
       else
         flash[:success] = "#{@repair.customer_name}：進捗情報を更新しました。"
       end
       redirect_to repairs_url
     else
-      flash[:danger] = UPDATE_ERROR_MSG
+      if @repair.delivery == 2 && @repair.progress == 1
+        flash[:danger] = "引渡済の状態で未完了には更新できません。先に引渡済を解除してください。"
+      elsif @repair.delivery == 2 && @repair.progress == 2
+        flash[:danger] = "引渡済の状態で修理中には更新できません。先に引渡済を解除してください。"
+      else
+        flash[:danger] = UPDATE_ERROR_MSG
+      end
       redirect_to repairs_url
     end
   end

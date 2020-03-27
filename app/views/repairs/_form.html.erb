@@ -52,9 +52,9 @@
       <%= f.label "未完了", class: "label-#{yield(:class_text)}" %>
       <%= f.radio_button :progress, 1 %>
       <%= f.label "修理中", class: "label-#{yield(:class_text)}" %>
-      <%= f.radio_button :progress, 3 %>
-      <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
       <%= f.radio_button :progress, 2 %>
+      <%= f.label "完了", class: "label-#{yield(:class_text)}" %>
+      <%= f.radio_button :progress, 3 %>
     </div>
     <div>
       <%= f.label "未連絡", class: "label-#{yield(:class_text)}" %>

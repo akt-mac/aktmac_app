@@ -5,9 +5,14 @@ module RepairsHelper
     Repair.where(progress: 1).count.to_i
   end
 
+  # 修理中件数
+  def in_progress_count
+    Repair.where(progress: 2).count.to_i
+  end
+
   # 修理済で未引渡し件数
   def no_delivery_count
-    Repair.where(progress: 2).where(delivery: 1).count.to_i
+    Repair.where(progress: 3).where(delivery: 1).count.to_i
   end
 
   # 受付番号表示
@@ -22,9 +27,19 @@ module RepairsHelper
     if progress == 1
       "未"
     elsif progress == 2
-      "✔"
-    elsif progress == 3
       "修理中"
+    elsif progress == 3
+      "✔"
+    else
+      "未登録"
+    end
+  end
+
+  def item_text(item)
+    if item == 1
+      "未"
+    elsif item == 2
+      "✔"
     else
       "未登録"
     end

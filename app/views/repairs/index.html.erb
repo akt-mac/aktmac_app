@@ -2,10 +2,13 @@
 <h1>修理一覧</h1>
 <h4>
   <% if no_progress_count > 0 %>
-    <span class="badge badge-pill badge-danger">未進捗&nbsp;<%= no_progress_count %>件</span>
+    <span class="badge badge-pill badge-danger">未着手&nbsp;<%= no_progress_count %>件</span>
+  <% end %>
+  <% if in_progress_count > 0 %>
+    <span class="badge badge-pill badge-primary">修理中&nbsp;<%= in_progress_count %>件</span>
   <% end %>
   <% if no_delivery_count > 0 %>
-    <span class="badge badge-pill badge-primary">未引渡&nbsp;<%= no_delivery_count %>件</span>
+    <span class="badge badge-pill badge-success">引渡待ち&nbsp;<%= no_delivery_count %>件</span>
   <% end %>
 </h4>
 <div class="row justify-content-md-center">
@@ -55,7 +58,7 @@
             <tr bgcolor="<%= "#FFCCCC" %>">
           <% elsif r.delivery == 2 %>
             <tr bgcolor="<%= "#e2e4eb" %>">
-          <% elsif r.progress == 2 && r.delivery == 1 %>
+          <% elsif r.progress == 3 && r.delivery == 1 %>
             <tr bgcolor="<%= "#F4F4F4" %>">
           <% else %>
             <tr>
@@ -83,29 +86,29 @@
             <% if r.progress == 1 && edit_authority %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-secondary" %>
             <% elsif r.progress == 2 && edit_authority %>
-              <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
-            <% elsif r.progress == 3 && edit_authority %>
               <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "btn btn-sm btn-outline-primary" %>
+            <% elsif r.progress == 3 && edit_authority %>
+              <%= link_to progress_text(r.progress), edit_progress_repair_path(r), remote: true, class: "repair_check" %>
             <% else %>
               <%= progress_text(r.progress) %>
             <% end %>
           </td>
           <td>
-            <% if r.contacted == 1 && r.progress == 2 && edit_authority %>
-              <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+            <% if r.contacted == 1 && r.progress == 3 && edit_authority %>
+              <%= link_to item_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% elsif r.contacted == 2 && edit_authority %>
-              <%= link_to progress_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "repair_check" %>
+              <%= link_to item_text(r.contacted), update_contacted_repair_path(r), method: :patch, class: "repair_check" %>
             <% else %>
-              <%= progress_text(r.contacted) %>
+              <%= item_text(r.contacted) %>
             <% end %>
           </td>
           <td>
-            <% if r.delivery == 1 && r.progress == 2 && edit_authority %>
-              <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+            <% if r.delivery == 1 && r.progress == 3 && edit_authority %>
+              <%= link_to item_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
             <% elsif r.delivery == 2 && edit_authority %>
-              <%= link_to progress_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "repair_check" %>
+              <%= link_to item_text(r.delivery), update_delivery_repair_path(r), method: :patch, class: "repair_check" %>
             <% else %>
-              <%= progress_text(r.delivery) %>
+              <%= item_text(r.delivery) %>
             <% end %>
           </td>
           <td>
