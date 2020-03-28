@@ -8,7 +8,7 @@ class RepairPDF < Prawn::Document
     @month_pdf = month
     @date = date
     font "vendor/fonts/ipaexm.ttf"
-    stroke_axis
+    stroke_axis if Rails.env.development? # 目盛りの表示(開発環境のみ)
     header
     table_content
   end
